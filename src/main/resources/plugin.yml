@@ -1,0 +1,19 @@
+name: ServerCore
+version: ${project.version}
+main: lol.hyper.servercore.ServerCore
+api-version: 1.16
+commands:
+  colors:
+    usage: /colors
+  delaysend:
+    usage: /delaysend
+  donate:
+    usage: /donate
+  help:
+    usage: /help
+  kws:
+    usage: /kws
+  ping:
+    usage: /ping
+  uptime:
+    usage: /uptime

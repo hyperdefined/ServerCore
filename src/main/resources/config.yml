@@ -1,0 +1,13 @@
+join-message:
+  first: "&6{PLAYER}&3 has joined the server for the first time! (#%server_unique_joins%)"
+  normal: "&6{PLAYER}&3 has joined the server."
+  private: "&6You find yourself in a strange area. What now?"
+
+leave-message: "&6{PLAYER}&3 has left the server."
+
+ping-you: "&6Your ping is %player_ping_{PLAYER}%ms."
+ping-other: "&6{PLAYER}'s ping is %player_ping_{PLAYER}%ms."
+
+player-not-found: "&cThat player was not found."
+
+uptime: "&6Server has been online for %server_uptime%."
