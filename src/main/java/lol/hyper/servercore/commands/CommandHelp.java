@@ -3,11 +3,11 @@ package lol.hyper.servercore.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.NotNull;
 
 public class CommandHelp implements CommandExecutor {
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        sender.sendMessage("I'll do this later.");
         return true;
     }
 }

@@ -33,21 +33,23 @@ public class Events implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
+        event.setJoinMessage(null);
         Player player = event.getPlayer();
         if (!player.hasPlayedBefore()) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("join-message.private")));
             String publicJoin = ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("join-message.first").replace("{PLAYER}", player.getName()));
-            Bukkit.getLogger().info(PlaceholderAPI.setPlaceholders(Bukkit.getOfflinePlayer(ServerCore.hyperdefined), publicJoin));
+            Bukkit.broadcastMessage(PlaceholderAPI.setPlaceholders(Bukkit.getOfflinePlayer(ServerCore.hyperdefined), publicJoin));
         } else {
-            Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("join-message.normal")));
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("join-message.normal").replace("{PLAYER}", player.getName())));
         }
     }
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event) {
+        event.setQuitMessage(null);
         Player player = event.getPlayer();
         String publicLeave = ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("leave-message").replace("{PLAYER}", player.getName()));
-        Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', publicLeave));
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', publicLeave));
     }
 
     @EventHandler

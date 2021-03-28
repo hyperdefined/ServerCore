@@ -35,8 +35,10 @@ public final class ServerCore extends JavaPlugin {
     public CommandDelaySend commandDelaySend;
     public CommandDonate commandDonate;
     public CommandHelp commandHelp;
+    public CommandKill commandKill;
     public CommandKillWitherSkulls commandKillWitherSkulls;
     public CommandPing commandPing;
+    public CommandRules commandRules;
     public CommandUptime commandUptime;
 
     @Override
@@ -46,8 +48,10 @@ public final class ServerCore extends JavaPlugin {
         commandDelaySend = new CommandDelaySend(this);
         commandDonate = new CommandDonate();
         commandHelp = new CommandHelp();
+        commandKill = new CommandKill();
         commandKillWitherSkulls = new CommandKillWitherSkulls();
         commandPing = new CommandPing(this);
+        commandRules = new CommandRules();
         commandUptime = new CommandUptime(this);
         loadConfig();
 
@@ -80,6 +84,9 @@ public final class ServerCore extends JavaPlugin {
     }
 
     public void loadConfig() {
+        if (!configFile.exists()) {
+            this.saveResource("config.yml", true);
+        }
         config = YamlConfiguration.loadConfiguration(configFile);
     }
 
@@ -102,11 +109,13 @@ public final class ServerCore extends JavaPlugin {
 
     private void registerCommands() {
         Objects.requireNonNull(this.getCommand("colors")).setExecutor(commandColors);
+        Objects.requireNonNull(this.getCommand("delaysend")).setExecutor(commandDelaySend);
         Objects.requireNonNull(this.getCommand("donate")).setExecutor(commandDonate);
         Objects.requireNonNull(this.getCommand("help")).setExecutor(commandHelp);
+        Objects.requireNonNull(this.getCommand("kill")).setExecutor(commandKill);
         Objects.requireNonNull(this.getCommand("kws")).setExecutor(commandKillWitherSkulls);
         Objects.requireNonNull(this.getCommand("ping")).setExecutor(commandPing);
+        Objects.requireNonNull(this.getCommand("rules")).setExecutor(commandRules);
         Objects.requireNonNull(this.getCommand("uptime")).setExecutor(commandUptime);
-        Objects.requireNonNull(this.getCommand("delaysend")).setExecutor(commandDelaySend);
     }
 }

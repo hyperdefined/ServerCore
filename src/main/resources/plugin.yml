@@ -17,3 +17,7 @@ commands:
     usage: /ping
   uptime:
     usage: /uptime
+  kill:
+    usage: /kill
+  rules:
+    usage: /rules
