@@ -31,6 +31,7 @@ public final class ServerCore extends JavaPlugin {
     public static final UUID hyperdefined = UUID.fromString("311be5cd-d17c-49b3-bf47-f781fdbcc929");
 
     public Events events;
+    public CommandBroadcast commandBroadcast;
     public CommandColors commandColors;
     public CommandDelaySend commandDelaySend;
     public CommandDonate commandDonate;
@@ -45,6 +46,7 @@ public final class ServerCore extends JavaPlugin {
     public void onEnable() {
         events = new Events(this);
         commandColors = new CommandColors();
+        commandBroadcast = new CommandBroadcast();
         commandDelaySend = new CommandDelaySend(this);
         commandDonate = new CommandDonate();
         commandHelp = new CommandHelp();
@@ -108,6 +110,7 @@ public final class ServerCore extends JavaPlugin {
     }
 
     private void registerCommands() {
+        Objects.requireNonNull(this.getCommand("br")).setExecutor(commandBroadcast);
         Objects.requireNonNull(this.getCommand("colors")).setExecutor(commandColors);
         Objects.requireNonNull(this.getCommand("delaysend")).setExecutor(commandDelaySend);
         Objects.requireNonNull(this.getCommand("donate")).setExecutor(commandDonate);

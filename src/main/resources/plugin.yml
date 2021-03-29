@@ -21,3 +21,5 @@ commands:
     usage: /kill
   rules:
     usage: /rules
+  br:
+    usage: /br

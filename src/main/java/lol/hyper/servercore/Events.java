@@ -41,8 +41,11 @@ public class Events implements Listener {
             String publicJoin = ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("join-message.first").replace("{PLAYER}", player.getName()));
             Bukkit.broadcastMessage(PlaceholderAPI.setPlaceholders(Bukkit.getOfflinePlayer(ServerCore.hyperdefined), publicJoin));
         } else {
-            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("join-message.normal").replace("{PLAYER}", player.getName())));
+            if (!ServerCore.isVanished(player.getName())) {
+                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("join-message.normal").replace("{PLAYER}", player.getName())));
+            }
         }
+        player.sendMessage(ChatColor.GOLD + "Make sure to read /rules since this is not full anarchy.");
     }
 
     @EventHandler
