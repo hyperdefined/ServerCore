@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 public class CommandHelp implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        sender.sendMessage("I'll do this later.");
+        sender.sendMessage("I'll do this later. - hyper xoxo");
         return true;
     }
 }

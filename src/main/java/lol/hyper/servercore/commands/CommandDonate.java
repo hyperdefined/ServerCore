@@ -10,7 +10,7 @@ public class CommandDonate implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         sender.sendMessage(ChatColor.GOLD + "--------------------------------------------");
-        sender.sendMessage(ChatColor.DARK_AQUA + "https://donate.servernamelol");
+        sender.sendMessage(ChatColor.DARK_AQUA + "https://donate.blockgame.fun");
         sender.sendMessage(ChatColor.DARK_AQUA + "The server is paid and owned by hyperdefined.");
         sender.sendMessage(ChatColor.DARK_AQUA + "Donating allows you to change the color of your name permanently.");
         sender.sendMessage(ChatColor.GOLD + "--------------------------------------------");

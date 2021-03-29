@@ -23,7 +23,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.nio.charset.StandardCharsets;
-import java.sql.Timestamp;
 
 public class Events implements Listener {
 
