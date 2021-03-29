@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerEditBookEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -22,6 +23,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
 
 public class Events implements Listener {
 
@@ -114,6 +116,7 @@ public class Events implements Listener {
         for (String page : event.getNewBookMeta().getPages()) {
             if (!StandardCharsets.ISO_8859_1.newEncoder().canEncode((page))) {
                 event.setCancelled(true);
+                event.getPlayer().sendMessage(ChatColor.RED + "Invalid characters.");
             }
         }
     }
