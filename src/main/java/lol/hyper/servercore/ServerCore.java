@@ -1,6 +1,7 @@
 package lol.hyper.servercore;
 
 import lol.hyper.servercore.commands.*;
+import lol.hyper.servercore.tools.AutoMessages;
 import lol.hyper.servercore.tools.FuckWitherSkulls;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
@@ -15,6 +16,7 @@ import org.json.simple.JSONObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -30,6 +32,9 @@ public final class ServerCore extends JavaPlugin {
 
     public static final UUID hyperdefined = UUID.fromString("311be5cd-d17c-49b3-bf47-f781fdbcc929");
 
+    public static final HashMap < Player, Long > lastChange = new HashMap< >(); // x1D - Offhand Swap fix
+    public static final HashMap < Player, Integer > warnings = new HashMap < > (); // x1D - Offhand Swap fix
+
     public Events events;
     public CommandBroadcast commandBroadcast;
     public CommandColors commandColors;
@@ -41,6 +46,7 @@ public final class ServerCore extends JavaPlugin {
     public CommandPing commandPing;
     public CommandRules commandRules;
     public CommandUptime commandUptime;
+    public AutoMessages autoMessages;
 
     @Override
     public void onEnable() {
@@ -55,9 +61,15 @@ public final class ServerCore extends JavaPlugin {
         commandPing = new CommandPing(this);
         commandRules = new CommandRules();
         commandUptime = new CommandUptime(this);
+        autoMessages = new AutoMessages();
         loadConfig();
 
         registerCommands();
+
+        for (Player player: Bukkit.getOnlinePlayers()) { // x1D - Offhand Swap fix
+            lastChange.put(player, System.currentTimeMillis()); // x1D - Offhand Swap fix
+            warnings.put(player, 0); // x1D - Offhand Swap fix
+        }
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
             File jsonFile = new File("status.json");
@@ -81,6 +93,10 @@ public final class ServerCore extends JavaPlugin {
             FuckWitherSkulls.killWitherSkulls();
             logger.info("Killing " + FuckWitherSkulls.countSkulls() + " wither skulls.");
         }, 0, 1200);
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "br " + AutoMessages.getRandomMessage());
+        }, 0, 3600);
 
         Bukkit.getServer().getPluginManager().registerEvents(events, this);
     }

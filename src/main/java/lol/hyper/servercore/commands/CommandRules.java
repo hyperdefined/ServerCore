@@ -9,7 +9,7 @@ public class CommandRules implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         sender.sendMessage(ChatColor.GOLD + "--------------------------------------------");
-        sender.sendMessage(ChatColor.DARK_AQUA + "Don't discuss or do illegal stuff in chat.");
+        sender.sendMessage(ChatColor.DARK_AQUA + "Don't break U.S. law. Cheating (using clients) is allowed and encouraged.");
         sender.sendMessage(ChatColor.GOLD + "--------------------------------------------");
         return true;
     }

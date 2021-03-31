@@ -12,10 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.player.PlayerAdvancementDoneEvent;
-import org.bukkit.event.player.PlayerEditBookEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
@@ -46,6 +43,9 @@ public class Events implements Listener {
             }
         }
         player.sendMessage(ChatColor.GOLD + "Make sure to read /rules since this is not full anarchy.");
+
+        ServerCore.lastChange.put(event.getPlayer(), System.currentTimeMillis()); // x1D - Offhand Swap fix
+        ServerCore.warnings.put(event.getPlayer(), 0); // x1D - Offhand Swap fix
     }
 
     @EventHandler
@@ -53,7 +53,10 @@ public class Events implements Listener {
         event.setQuitMessage(null);
         Player player = event.getPlayer();
         String publicLeave = ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("leave-message").replace("{PLAYER}", player.getName()));
-        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', publicLeave));
+        if (!ServerCore.isVanished(player.getName())) {
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', publicLeave));
+        }
+        player.setGliding(false);
     }
 
     @EventHandler
@@ -121,5 +124,18 @@ public class Events implements Listener {
                 event.getPlayer().sendMessage(ChatColor.RED + "Invalid characters.");
             }
         }
+    }
+
+    @EventHandler
+    public void onMainHandChange(PlayerSwapHandItemsEvent event) {
+        if (ServerCore.lastChange.get(event.getPlayer()) != null && ServerCore.lastChange.get(event.getPlayer()) + 250 > System.currentTimeMillis()) {
+            ServerCore.warnings.put(event.getPlayer(), ServerCore.warnings.get(event.getPlayer()) + 1);
+            event.getPlayer().sendMessage(ChatColor.GOLD + "Please slow down or you will be kicked. (" + ServerCore.warnings.get(event.getPlayer()) + "/5)");
+            if (ServerCore.warnings.get(event.getPlayer()) > 4) {
+                event.getPlayer().kickPlayer("nah");
+                ServerCore.warnings.put(event.getPlayer(), 0);
+            }
+        }
+        ServerCore.lastChange.put(event.getPlayer(), System.currentTimeMillis());
     }
 }
