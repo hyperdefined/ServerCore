@@ -10,12 +10,8 @@ public class AutoMessages {
 
     public AutoMessages() {
         messages.put(1, "Make sure to /vote! Voting gives you a blue name.");
-        messages.put(2, ":3");
-        messages.put(3, "This is an automated message.");
-        messages.put(4, "The server is not final. Things are going to change in the future.");
-        messages.put(5, "1.17 update? Probably.");
-        messages.put(6, "owo");
-        messages.put(7, "xD");
+        messages.put(2, "Every 25 votes, a dupe is enabled for 48 days.");
+        messages.put(3, "This map will reset on June 12th.");
     }
 
     public static String getRandomMessage(){
