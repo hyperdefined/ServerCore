@@ -42,7 +42,7 @@ public class Events implements Listener {
                 Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("join-message.normal").replace("{PLAYER}", player.getName())));
             }
         }
-        player.sendMessage(ChatColor.GOLD + "Welcome to Limited Survival season 1! The map is 25k by 25k. This map will reset on June 12th.");
+        player.sendMessage(ChatColor.GOLD + "Welcome to Limited Survival season 1! The map is 25k by 25k. This map will reset on July 12th.");
         player.sendMessage(ChatColor.GOLD + "Make sure to read /rules since this is not full anarchy.");
 
         ServerCore.lastChange.put(event.getPlayer(), System.currentTimeMillis()); // x1D - Offhand Swap fix
