@@ -2,6 +2,7 @@ package lol.hyper.servercore;
 
 import lol.hyper.servercore.commands.*;
 import lol.hyper.servercore.tools.AutoMessages;
+import lol.hyper.servercore.tools.DupeCharges;
 import lol.hyper.servercore.tools.FuckWitherSkulls;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
@@ -16,6 +17,9 @@ import org.json.simple.JSONObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
@@ -24,6 +28,7 @@ import java.util.logging.Logger;
 public final class ServerCore extends JavaPlugin {
 
     public final File configFile = new File(this.getDataFolder(), "config.yml");
+    public final Path dupeCharges = Paths.get(this.getDataFolder() + File.separator + "dupecharges");
     public FileConfiguration config = this.getConfig();
     public final Logger logger = this.getLogger();
 
@@ -47,6 +52,9 @@ public final class ServerCore extends JavaPlugin {
     public CommandRules commandRules;
     public CommandUptime commandUptime;
     public AutoMessages autoMessages;
+    public DupeCharges dupeChargesFUCK;
+    public CommandDupeCharge commandDupeCharge;
+    public CommandDupe commandDupe;
 
     @Override
     public void onEnable() {
@@ -62,6 +70,9 @@ public final class ServerCore extends JavaPlugin {
         commandRules = new CommandRules();
         commandUptime = new CommandUptime(this);
         autoMessages = new AutoMessages();
+        dupeChargesFUCK = new DupeCharges(this);
+        commandDupeCharge = new CommandDupeCharge(this);
+        commandDupe = new CommandDupe(this);
         loadConfig();
 
         registerCommands();
@@ -99,6 +110,14 @@ public final class ServerCore extends JavaPlugin {
         }, 0, 3600);
 
         Bukkit.getServer().getPluginManager().registerEvents(events, this);
+
+        if (!dupeCharges.toFile().exists()) {
+            try {
+                Files.createDirectory(dupeCharges);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void loadConfig() {
