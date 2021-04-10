@@ -57,18 +57,18 @@ public class DupeCharges {
         }
     }
 
-    public int getDupeCharges(UUID player) {
+    public long getDupeCharges(UUID player) {
         File fuck = new File(String.valueOf(serverCore.dupeCharges), player.toString() + ".json");
         JSONObject file = readFile(fuck);
         if (file == null) {
             return 0;
         }
-        return (int) file.get("dupecharges");
+        return (long) file.get("dupecharges");
     }
 
-    public void updateCharges(UUID player, int i) {
+    public void updateCharges(UUID player, long i) {
         File fuck = new File(String.valueOf(serverCore.dupeCharges), player.toString() + ".json");
-        JSONObject file = file = readFile(fuck);
+        JSONObject file = readFile(fuck);
         if (file == null) {
             file = new JSONObject();
         }
