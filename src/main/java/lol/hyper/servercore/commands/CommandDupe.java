@@ -44,6 +44,7 @@ public class CommandDupe implements CommandExecutor {
                     inv.setItem(inv.getHeldItemSlot(), new ItemStack(Material.AIR));
                     inv.setItem(inv.getHeldItemSlot(), heldItem);
                     serverCore.dupeChargesFUCK.updateCharges(player.getUniqueId(), dupeCharges - 1);
+                    serverCore.logger.info(player.getName() + " duped " + heldItem.getType() + ". Old: " + doubleStackSize /2 + " New: " + doubleStackSize);
                 } else {
                     sender.sendMessage(ChatColor.RED + "You don't have enough dupe charges.");
                 }
