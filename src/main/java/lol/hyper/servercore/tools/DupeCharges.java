@@ -68,9 +68,9 @@ public class DupeCharges {
 
     public void updateCharges(UUID player, int i) {
         File fuck = new File(String.valueOf(serverCore.dupeCharges), player.toString() + ".json");
-        JSONObject file = readFile(fuck);
+        JSONObject file = file = readFile(fuck);
         if (file == null) {
-            return;
+            file = new JSONObject();
         }
         file.remove("dupecharges");
         file.put("dupecharges", i);
