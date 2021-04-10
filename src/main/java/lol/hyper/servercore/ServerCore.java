@@ -155,5 +155,7 @@ public final class ServerCore extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("ping")).setExecutor(commandPing);
         Objects.requireNonNull(this.getCommand("rules")).setExecutor(commandRules);
         Objects.requireNonNull(this.getCommand("uptime")).setExecutor(commandUptime);
+        Objects.requireNonNull(this.getCommand("dupe")).setExecutor(commandDupe);
+        Objects.requireNonNull(this.getCommand("dupecharge")).setExecutor(commandDupeCharge);
     }
 }

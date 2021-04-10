@@ -23,3 +23,7 @@ commands:
     usage: /rules
   br:
     usage: /br
+  dupe:
+    usage: /dupe
+  dupecharge:
+    usage: /dupecharge
