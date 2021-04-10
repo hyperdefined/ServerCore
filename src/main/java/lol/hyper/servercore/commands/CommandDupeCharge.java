@@ -18,9 +18,9 @@ public class CommandDupeCharge implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        UUID player = UUID.fromString(args[0]);
+        String player = args[0];
         int i = Integer.parseInt(args[1]);
-        serverCore.dupeChargesFUCK.updateCharges(player, i);
+        serverCore.dupeChargesFUCK.updateCharges(Bukkit.getPlayerExact(player).getUniqueId(), i);
         serverCore.logger.info("Giving " + Bukkit.getPlayer(player).getName() + " " + i + " dupe charges.");
         return true;
     }
