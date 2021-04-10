@@ -31,12 +31,18 @@ public class CommandDupe implements CommandExecutor {
         if (args.length == 1) {
             if (args[1].equalsIgnoreCase("confirm")) {
                 Player player = (Player) sender;
-                PlayerInventory inv = player.getPlayer().getInventory();
-                ItemStack heldItem = inv.getItemInMainHand();
-                int doubleStackSize = heldItem.getAmount() * 2;
-                heldItem.setAmount(doubleStackSize);
-                inv.setItem(inv.getHeldItemSlot(), new ItemStack(Material.AIR));
-                inv.setItem(inv.getHeldItemSlot(), heldItem);
+                int dupeCharges = serverCore.dupeChargesFUCK.getDupeCharges(player.getUniqueId());
+                if (dupeCharges >= 1) {
+                    PlayerInventory inv = player.getPlayer().getInventory();
+                    ItemStack heldItem = inv.getItemInMainHand();
+                    int doubleStackSize = heldItem.getAmount() * 2;
+                    heldItem.setAmount(doubleStackSize);
+                    inv.setItem(inv.getHeldItemSlot(), new ItemStack(Material.AIR));
+                    inv.setItem(inv.getHeldItemSlot(), heldItem);
+                    serverCore.dupeChargesFUCK.updateCharges(player.getUniqueId(), dupeCharges - 1);
+                } else {
+                    sender.sendMessage(ChatColor.RED + "You don't have enough dupe charges.");
+                }
             }
         }
         return false;
