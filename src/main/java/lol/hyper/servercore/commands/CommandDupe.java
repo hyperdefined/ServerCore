@@ -49,6 +49,6 @@ public class CommandDupe implements CommandExecutor {
                 }
             }
         }
-        return false;
+        return true;
     }
 }
