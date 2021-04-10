@@ -10,8 +10,9 @@ public class AutoMessages {
 
     public AutoMessages() {
         messages.put(1, "Make sure to /vote! Voting gives you a blue name.");
-        messages.put(2, "Every 25 votes, a dupe is enabled for 48 days.");
-        messages.put(3, "This map will reset on June 12th.");
+        messages.put(2, "Hey you! Make sure to vote. Each vote gives you 2 dupe charges. That means you can /dupe twice!");
+        messages.put(3, "Hey monkeys, check out the subreddit!");
+        messages.put(4, "This map will reset on June 12th.");
     }
 
     public static String getRandomMessage(){
