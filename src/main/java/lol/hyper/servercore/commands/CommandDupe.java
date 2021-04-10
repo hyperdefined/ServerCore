@@ -29,7 +29,7 @@ public class CommandDupe implements CommandExecutor {
             return true;
         }
         if (args.length == 1) {
-            if (args[1].equalsIgnoreCase("confirm")) {
+            if (args[0].equalsIgnoreCase("confirm")) {
                 Player player = (Player) sender;
                 long dupeCharges = serverCore.dupeChargesFUCK.getDupeCharges(player.getUniqueId());
                 if (dupeCharges >= 1) {
