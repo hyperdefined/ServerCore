@@ -35,6 +35,10 @@ public class CommandDupe implements CommandExecutor {
                 if (dupeCharges >= 1) {
                     PlayerInventory inv = player.getPlayer().getInventory();
                     ItemStack heldItem = inv.getItemInMainHand();
+                    if (heldItem.getType() == Material.AIR) {
+                        sender.sendMessage(ChatColor.RED + "You aren't holding anything!");
+                        return true;
+                    }
                     int doubleStackSize = heldItem.getAmount() * 2;
                     heldItem.setAmount(doubleStackSize);
                     inv.setItem(inv.getHeldItemSlot(), new ItemStack(Material.AIR));
