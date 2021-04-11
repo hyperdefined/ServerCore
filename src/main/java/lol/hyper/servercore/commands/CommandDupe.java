@@ -23,6 +23,11 @@ public class CommandDupe implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!serverCore.config.getBoolean("enable-dupe")) {
+            sender.sendMessage(ChatColor.RED + "This is currently disabled. Check back later.");
+            return true;
+        }
+
         if (args.length == 0) {
             sender.sendMessage(ChatColor.GREEN + "You have " + serverCore.dupeChargesFUCK.getDupeCharges(Bukkit.getPlayerExact(sender.getName()).getUniqueId()) + " dupe charges left.");
             sender.sendMessage(ChatColor.GREEN + "Type /dupe confirm to confirm you want to dupe what you are holding.");

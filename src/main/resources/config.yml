@@ -11,3 +11,5 @@ ping-other: "&6{PLAYER}'s ping is %player_ping_{PLAYER}%ms."
 player-not-found: "&cThat player was not found."
 
 uptime: "&6Server has been online for %server_uptime%."
+
+enable-dupe: false
