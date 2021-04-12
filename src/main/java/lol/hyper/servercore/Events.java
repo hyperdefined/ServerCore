@@ -1,9 +1,7 @@
 package lol.hyper.servercore;
 
 import me.clip.placeholderapi.PlaceholderAPI;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -138,5 +136,23 @@ public class Events implements Listener {
             }
         }
         ServerCore.lastChange.put(event.getPlayer(), System.currentTimeMillis());
+    }
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent event) {
+        final Player player = event.getPlayer();
+        if (player.getWorld().getEnvironment() == World.Environment.NETHER) {
+            if (player.hasPermission("nonetherroof.bypass")) {
+                return;
+            }
+            if (player.getLocation().getY() > 127) {
+                Location toSpawn = new Location(player.getLocation().getWorld(), player.getLocation().getBlockX() + 0.5, 127, player.getLocation().getBlockZ() + 0.5);
+                toSpawn.subtract(0, 1, 0).getBlock().setType(Material.AIR);
+                toSpawn.subtract(0, 1, 0).getBlock().setType(Material.AIR);
+                toSpawn.subtract(0, 1, 0).getBlock().setType(Material.NETHERRACK);
+                player.teleport(toSpawn.add(0, 1, 0));
+                player.sendMessage(ChatColor.RED + "You are not allow to go up here.");
+            }
+        }
     }
 }
