@@ -82,6 +82,7 @@ public final class ServerCore extends JavaPlugin {
             warnings.put(player, 0); // x1D - Offhand Swap fix
         }
 
+        /*
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
             File jsonFile = new File("status.json");
             obj = new JSONObject();
@@ -100,6 +101,7 @@ public final class ServerCore extends JavaPlugin {
                 e.printStackTrace();
             }
         }, 0L, 200);
+         */
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
             FuckWitherSkulls.killWitherSkulls();
             logger.info("Killing " + FuckWitherSkulls.countSkulls() + " wither skulls.");
