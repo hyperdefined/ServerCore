@@ -9,10 +9,9 @@ public class AutoMessages {
     static int lastMessageID = 0;
 
     public AutoMessages() {
-        messages.put(1, "Make sure to /vote! Voting gives you a blue name.");
-        messages.put(2, "Hey you! Make sure to vote. Each vote gives you 2 dupe charges. That means you can /dupe twice!");
-        messages.put(3, "Hey retards, check out the subreddit!");
-        messages.put(4, "This map will reset on June 12th.");
+        messages.put(1, "Make sure to /vote! Voting gives you a blue name. You also get 2 dupe charges!");
+        messages.put(2, "Hey retards, check out the subreddit!");
+        messages.put(3, "This map will reset on July 12th.");
     }
 
     public static String getRandomMessage(){
