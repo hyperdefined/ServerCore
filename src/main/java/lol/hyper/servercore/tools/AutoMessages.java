@@ -11,7 +11,7 @@ public class AutoMessages {
     public AutoMessages() {
         messages.put(1, "Make sure to /vote! Voting gives you a blue name. You also get 2 dupe charges!");
         messages.put(2, "Hey retards, check out the subreddit!");
-        messages.put(3, "This map will reset on July 12th.");
+        messages.put(3, "THE MAP IS NOT GOING TO RESET ANYMORE.");
     }
 
     public static String getRandomMessage(){
