@@ -41,6 +41,7 @@ public class Events implements Listener {
             }
         }
         player.sendMessage(ChatColor.GOLD + "Welcome to Limited Survival!");
+        player.sendMessage(ChatColor.GOLD + "Make sure to /vote! Voting gives you a blue name. You also get 2 dupe charges!");
         player.sendMessage(ChatColor.GOLD + "Make sure to read /rules since this is not full anarchy.");
 
         ServerCore.lastChange.put(event.getPlayer(), System.currentTimeMillis()); // x1D - Offhand Swap fix

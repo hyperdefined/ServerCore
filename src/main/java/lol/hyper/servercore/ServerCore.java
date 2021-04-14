@@ -107,9 +107,11 @@ public final class ServerCore extends JavaPlugin {
             logger.info("Killing " + FuckWitherSkulls.countSkulls() + " wither skulls.");
         }, 0, 1200);
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+
+        /*Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
             Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "br " + AutoMessages.getRandomMessage());
         }, 0, 10000);
+         */
 
         Bukkit.getServer().getPluginManager().registerEvents(events, this);
 
