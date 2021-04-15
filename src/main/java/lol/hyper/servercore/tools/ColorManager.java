@@ -64,6 +64,10 @@ public class ColorManager {
         }
 
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.getName() + " permission set servercore." + newColor + " true");
-        player.sendMessage(ChatColor.GREEN + "Your name color is now " + newColor + ".");
+        if (newColor.equalsIgnoreCase("reset")) {
+            player.sendMessage(ChatColor.GREEN + "You have reset your name color.");
+        } else {
+            player.sendMessage(ChatColor.GREEN + "Your name color is now " + newColor + ". To reset, simple do /color reset.");
+        }
     }
 }

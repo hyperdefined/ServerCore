@@ -18,7 +18,7 @@ public class CommandColor implements TabExecutor {
             return true;
         }
         if (args.length == 0) {
-            sender.sendMessage(ChatColor.RED + "You need to specify which color you want. See /colors for valid colors.");
+            sender.sendMessage(ChatColor.RED + "You need to specify which color you want. See /colors for valid color IDs to use.");
             return true;
         }
         String color = args[0];
@@ -27,7 +27,7 @@ public class CommandColor implements TabExecutor {
             ColorManager.updateUsersColor((Player) sender, color);
         } else {
             // color is not valid
-            sender.sendMessage(ChatColor.RED + "That is not a valid color option. Please see /colors for valid colors.");
+            sender.sendMessage(ChatColor.RED + "That is not a valid color option. See /colors for valid color IDs to use.");
         }
 
         return true;
