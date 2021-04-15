@@ -55,6 +55,7 @@ public final class ServerCore extends JavaPlugin {
     public DupeCharges dupeChargesFUCK;
     public CommandDupeCharge commandDupeCharge;
     public CommandDupe commandDupe;
+    public CommandColor commandColor;
 
     @Override
     public void onEnable() {
@@ -73,6 +74,7 @@ public final class ServerCore extends JavaPlugin {
         dupeChargesFUCK = new DupeCharges(this);
         commandDupeCharge = new CommandDupeCharge(this);
         commandDupe = new CommandDupe(this);
+        commandColor = new CommandColor();
         loadConfig();
 
         registerCommands();
@@ -161,5 +163,6 @@ public final class ServerCore extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("uptime")).setExecutor(commandUptime);
         Objects.requireNonNull(this.getCommand("dupe")).setExecutor(commandDupe);
         Objects.requireNonNull(this.getCommand("dupecharge")).setExecutor(commandDupeCharge);
+        Objects.requireNonNull(this.getCommand("color")).setExecutor(commandColor);
     }
 }

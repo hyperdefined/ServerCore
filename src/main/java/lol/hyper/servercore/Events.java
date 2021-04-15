@@ -1,5 +1,6 @@
 package lol.hyper.servercore;
 
+import lol.hyper.servercore.tools.ColorManager;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -155,5 +156,15 @@ public class Events implements Listener {
                 player.sendMessage(ChatColor.RED + "You are not allow to go up here.");
             }
         }
+    }
+
+    @EventHandler
+    public void onPlayerChat(AsyncPlayerChatEvent event) {
+        Player player = event.getPlayer();
+        if (ColorManager.getCurrentColor(player) == null) {
+            return;
+        }
+        String color = ColorManager.colorsToCodes.get(ColorManager.getCurrentColor(player));
+        event.setFormat("<" + color + player.getName() + ChatColor.RESET + "> " + event.getMessage());
     }
 }

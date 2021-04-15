@@ -27,3 +27,5 @@ commands:
     usage: /dupe
   dupecharge:
     usage: /dupecharge
+  color:
+    usage: /color
