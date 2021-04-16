@@ -84,26 +84,6 @@ public final class ServerCore extends JavaPlugin {
             warnings.put(player, 0); // x1D - Offhand Swap fix
         }
 
-        /*
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            File jsonFile = new File("status.json");
-            obj = new JSONObject();
-            onlinePlayers = new JSONArray();
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                if (!this.isVanished(player.getName())) {
-                    onlinePlayers.add(player.getName());
-                }
-            }
-            obj.put("players", onlinePlayers);
-            obj.put("tps", PlaceholderAPI.setPlaceholders(Bukkit.getOfflinePlayer(hyperdefined), "%spark_tps_5s%").substring(2));
-            obj.put("uptime", PlaceholderAPI.setPlaceholders(Bukkit.getOfflinePlayer(hyperdefined), "%server_uptime%"));
-            try (FileWriter file = new FileWriter(jsonFile)) {
-                file.write(obj.toString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }, 0L, 200);
-         */
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
             FuckWitherSkulls.killWitherSkulls();
             logger.info("Killing " + FuckWitherSkulls.countSkulls() + " wither skulls.");
