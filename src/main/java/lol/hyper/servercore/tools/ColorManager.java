@@ -47,6 +47,9 @@ public class ColorManager {
     }};
 
     public static String getCurrentColor(Player player) {
+        if (player.isOp()) {
+            return "red";
+        }
         for (String color : colors) {
             if (player.hasPermission("servercore." + color)) {
                 return color;
