@@ -44,7 +44,7 @@ public class CommandDupe implements CommandExecutor {
                         sender.sendMessage(ChatColor.RED + "You aren't holding anything!");
                         return true;
                     }
-                    int doubleStackSize = heldItem.getAmount() * 2;
+                    int doubleStackSize = heldItem.getAmount();
                     for (int i = 0; i < doubleStackSize; i++) {
                         player.getWorld().dropItem(player.getLocation(), heldItem);
                     }
