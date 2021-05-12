@@ -45,9 +45,9 @@ public class CommandDupe implements CommandExecutor {
                         return true;
                     }
                     int doubleStackSize = heldItem.getAmount() * 2;
-                    heldItem.setAmount(doubleStackSize);
-                    inv.setItem(inv.getHeldItemSlot(), new ItemStack(Material.AIR));
-                    inv.setItem(inv.getHeldItemSlot(), heldItem);
+                    for (int i = 0; i < doubleStackSize; i++) {
+                        player.getWorld().dropItem(player.getLocation(), heldItem);
+                    }
                     serverCore.dupeChargesFUCK.updateCharges(player.getUniqueId(), dupeCharges - 1);
                     serverCore.logger.info(player.getName() + " duped " + heldItem.getType() + ". Old: " + doubleStackSize /2 + " New: " + doubleStackSize);
                 } else {

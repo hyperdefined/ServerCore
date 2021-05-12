@@ -47,6 +47,16 @@ public class Events implements Listener {
 
         ServerCore.lastChange.put(event.getPlayer(), System.currentTimeMillis()); // x1D - Offhand Swap fix
         ServerCore.warnings.put(event.getPlayer(), 0); // x1D - Offhand Swap fix
+
+        for (ItemStack item : player.getInventory().getContents()) {
+            if (item != null) {
+                if (item.getAmount() > item.getMaxStackSize()) {
+                    item.setAmount(item.getMaxStackSize());
+                    Bukkit.getLogger().warning("Reverting invalid stack of " + item.getType().toString() + ".");
+                    Bukkit.getLogger().warning("Location is " + event.getPlayer().getLocation());
+                }
+            }
+        }
     }
 
     @EventHandler
