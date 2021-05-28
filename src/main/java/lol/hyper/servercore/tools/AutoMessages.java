@@ -13,7 +13,7 @@ public class AutoMessages {
         messages.put(2, "Hey retards, check out the subreddit!");
     }
 
-    public static String getRandomMessage(){
+    public static String getRandomMessage() {
         Random generator = new Random();
         Object[] values = messages.values().toArray();
         int random = generator.nextInt(values.length);

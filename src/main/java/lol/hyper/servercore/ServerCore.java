@@ -4,7 +4,6 @@ import lol.hyper.servercore.commands.*;
 import lol.hyper.servercore.tools.AutoMessages;
 import lol.hyper.servercore.tools.DupeCharges;
 import lol.hyper.servercore.tools.FuckWitherSkulls;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,7 +14,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,19 +25,13 @@ import java.util.logging.Logger;
 
 public final class ServerCore extends JavaPlugin {
 
+    public static final UUID hyperdefined = UUID.fromString("311be5cd-d17c-49b3-bf47-f781fdbcc929");
+    public static final HashMap<Player, Long> lastChange = new HashMap<>(); // x1D - Offhand Swap fix
+    public static final HashMap<Player, Integer> warnings = new HashMap<>(); // x1D - Offhand Swap fix
     public final File configFile = new File(this.getDataFolder(), "config.yml");
     public final Path dupeCharges = Paths.get(this.getDataFolder() + File.separator + "dupecharges");
-    public FileConfiguration config = this.getConfig();
     public final Logger logger = this.getLogger();
-
-    private JSONObject obj = new JSONObject();
-    private JSONArray onlinePlayers = new JSONArray();
-
-    public static final UUID hyperdefined = UUID.fromString("311be5cd-d17c-49b3-bf47-f781fdbcc929");
-
-    public static final HashMap < Player, Long > lastChange = new HashMap< >(); // x1D - Offhand Swap fix
-    public static final HashMap < Player, Integer > warnings = new HashMap < > (); // x1D - Offhand Swap fix
-
+    public FileConfiguration config = this.getConfig();
     public Events events;
     public CommandBroadcast commandBroadcast;
     public CommandColors commandColors;
@@ -56,6 +48,25 @@ public final class ServerCore extends JavaPlugin {
     public CommandDupeCharge commandDupeCharge;
     public CommandDupe commandDupe;
     public CommandColor commandColor;
+    private JSONObject obj = new JSONObject();
+    private JSONArray onlinePlayers = new JSONArray();
+
+    /**
+     * @param player player to check if vanished
+     * @return returns if player is vanished or not
+     */
+    public static boolean isVanished(String player) {
+        if (Bukkit.getPlayerExact(player) == null) {
+            return false;
+        } else {
+            Player player2 = Bukkit.getPlayerExact(player);
+            assert player2 != null;
+            for (MetadataValue meta : player2.getMetadata("vanished")) {
+                if (meta.asBoolean()) return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public void onEnable() {
@@ -79,16 +90,20 @@ public final class ServerCore extends JavaPlugin {
 
         registerCommands();
 
-        for (Player player: Bukkit.getOnlinePlayers()) { // x1D - Offhand Swap fix
+        for (Player player : Bukkit.getOnlinePlayers()) { // x1D - Offhand Swap fix
             lastChange.put(player, System.currentTimeMillis()); // x1D - Offhand Swap fix
             warnings.put(player, 0); // x1D - Offhand Swap fix
         }
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            FuckWitherSkulls.killWitherSkulls();
-            logger.info("Killing " + FuckWitherSkulls.countSkulls() + " wither skulls.");
-        }, 0, 1200);
-
+        Bukkit.getScheduler()
+                .scheduleSyncRepeatingTask(
+                        this,
+                        () -> {
+                            FuckWitherSkulls.killWitherSkulls();
+                            logger.info("Killing " + FuckWitherSkulls.countSkulls() + " wither skulls.");
+                        },
+                        0,
+                        1200);
 
         /*Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
             Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "br " + AutoMessages.getRandomMessage());
@@ -111,23 +126,6 @@ public final class ServerCore extends JavaPlugin {
             this.saveResource("config.yml", true);
         }
         config = YamlConfiguration.loadConfiguration(configFile);
-    }
-
-    /**
-     * @param player player to check if vanished
-     * @return returns if player is vanished or not
-     */
-    public static boolean isVanished(String player) {
-        if (Bukkit.getPlayerExact(player) == null) {
-            return false;
-        } else {
-            Player player2 = Bukkit.getPlayerExact(player);
-            assert player2 != null;
-            for (MetadataValue meta : player2.getMetadata("vanished")) {
-                if (meta.asBoolean()) return true;
-            }
-        }
-        return false;
     }
 
     private void registerCommands() {

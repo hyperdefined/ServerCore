@@ -13,14 +13,12 @@ import java.util.UUID;
 
 public class DupeCharges {
 
+    private static FileWriter writer;
+    private static FileReader reader;
     private final ServerCore serverCore;
-
     public DupeCharges(ServerCore serverCore) {
         this.serverCore = serverCore;
     }
-
-    private static FileWriter writer;
-    private static FileReader reader;
 
     private JSONObject readFile(File file) {
         if (!file.exists()) {

@@ -21,7 +21,8 @@ public class CommandUptime implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String uptimeText;
         if (sender instanceof ConsoleCommandSender) {
-            uptimeText = PlaceholderAPI.setPlaceholders(Bukkit.getOfflinePlayer(ServerCore.hyperdefined), serverCore.config.getString("uptime"));
+            uptimeText = PlaceholderAPI.setPlaceholders(
+                    Bukkit.getOfflinePlayer(ServerCore.hyperdefined), serverCore.config.getString("uptime"));
         } else {
             uptimeText = PlaceholderAPI.setPlaceholders((Player) sender, serverCore.config.getString("uptime"));
         }

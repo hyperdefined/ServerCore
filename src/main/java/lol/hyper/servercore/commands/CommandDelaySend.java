@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 public class CommandDelaySend implements CommandExecutor {
 
     private final ServerCore serverCore;
@@ -38,10 +37,15 @@ public class CommandDelaySend implements CommandExecutor {
             playerMessage.append(" ");
         }
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(serverCore, () -> {
-            String finalMessage = PlaceholderAPI.setPlaceholders(offlinePlayer, playerMessage.toString());
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', finalMessage));
-        }, 20);
+        Bukkit.getScheduler()
+                .scheduleSyncDelayedTask(
+                        serverCore,
+                        () -> {
+                            String finalMessage =
+                                    PlaceholderAPI.setPlaceholders(offlinePlayer, playerMessage.toString());
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', finalMessage));
+                        },
+                        20);
         return true;
     }
 }

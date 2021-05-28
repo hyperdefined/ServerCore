@@ -33,16 +33,21 @@ public class Events implements Listener {
         event.setJoinMessage(null);
         Player player = event.getPlayer();
         if (!player.hasPlayedBefore()) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("join-message.private")));
-            String publicJoin = ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("join-message.first").replace("{PLAYER}", player.getName()));
-            Bukkit.broadcastMessage(PlaceholderAPI.setPlaceholders(Bukkit.getOfflinePlayer(ServerCore.hyperdefined), publicJoin));
+            player.sendMessage(
+                    ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("join-message.private")));
+            String publicJoin = ChatColor.translateAlternateColorCodes(
+                    '&', serverCore.config.getString("join-message.first").replace("{PLAYER}", player.getName()));
+            Bukkit.broadcastMessage(
+                    PlaceholderAPI.setPlaceholders(Bukkit.getOfflinePlayer(ServerCore.hyperdefined), publicJoin));
         } else {
             if (!ServerCore.isVanished(player.getName())) {
-                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("join-message.normal").replace("{PLAYER}", player.getName())));
+                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes(
+                        '&', serverCore.config.getString("join-message.normal").replace("{PLAYER}", player.getName())));
             }
         }
         player.sendMessage(ChatColor.GOLD + "Welcome to Limited Survival!");
-        player.sendMessage(ChatColor.GOLD + "Make sure to /vote! Voting gives you a blue name. You also get 2 dupe charges!");
+        player.sendMessage(
+                ChatColor.GOLD + "Make sure to /vote! Voting gives you a blue name. You also get 2 dupe charges!");
         player.sendMessage(ChatColor.GOLD + "Make sure to read /rules since this is not full anarchy.");
 
         ServerCore.lastChange.put(event.getPlayer(), System.currentTimeMillis()); // x1D - Offhand Swap fix
@@ -52,8 +57,11 @@ public class Events implements Listener {
             if (item != null) {
                 if (item.getAmount() > item.getMaxStackSize()) {
                     item.setAmount(item.getMaxStackSize());
-                    Bukkit.getLogger().warning("Reverting invalid stack of " + item.getType().toString() + ".");
-                    Bukkit.getLogger().warning("Location is " + event.getPlayer().getLocation());
+                    Bukkit.getLogger()
+                            .warning("Reverting invalid stack of "
+                                    + item.getType().toString() + ".");
+                    Bukkit.getLogger()
+                            .warning("Location is " + event.getPlayer().getLocation());
                 }
             }
         }
@@ -63,7 +71,8 @@ public class Events implements Listener {
     public void onPlayerLeave(PlayerQuitEvent event) {
         event.setQuitMessage(null);
         Player player = event.getPlayer();
-        String publicLeave = ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("leave-message").replace("{PLAYER}", player.getName()));
+        String publicLeave = ChatColor.translateAlternateColorCodes(
+                '&', serverCore.config.getString("leave-message").replace("{PLAYER}", player.getName()));
         if (!ServerCore.isVanished(player.getName())) {
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', publicLeave));
         }
@@ -73,20 +82,21 @@ public class Events implements Listener {
     @EventHandler
     public void onBlockPlaceEvent(BlockPlaceEvent event) {
         Block placed = event.getBlockPlaced();
-        if (placed.getType() == Material.BEDROCK ||
-                placed.getType() == Material.BARRIER ||
-                placed.getType() == Material.PLAYER_HEAD ||
-                placed.getType() == Material.PLAYER_WALL_HEAD ||
-                placed.getType() == Material.STRUCTURE_BLOCK ||
-                placed.getType() == Material.STRUCTURE_VOID ||
-                placed.getType() == Material.COMMAND_BLOCK ||
-                placed.getType() == Material.COMMAND_BLOCK_MINECART ||
-                placed.getType() == Material.CHAIN_COMMAND_BLOCK ||
-                placed.getType() == Material.REPEATING_COMMAND_BLOCK ||
-                placed.getType() == Material.SPAWNER
-        ) {
+        if (placed.getType() == Material.BEDROCK
+                || placed.getType() == Material.BARRIER
+                || placed.getType() == Material.PLAYER_HEAD
+                || placed.getType() == Material.PLAYER_WALL_HEAD
+                || placed.getType() == Material.STRUCTURE_BLOCK
+                || placed.getType() == Material.STRUCTURE_VOID
+                || placed.getType() == Material.COMMAND_BLOCK
+                || placed.getType() == Material.COMMAND_BLOCK_MINECART
+                || placed.getType() == Material.CHAIN_COMMAND_BLOCK
+                || placed.getType() == Material.REPEATING_COMMAND_BLOCK
+                || placed.getType() == Material.SPAWNER) {
             event.setCancelled(true);
-            Bukkit.getLogger().info(event.getPlayer().getName() + " tried placing " + placed.getType() + " at " + placed.getLocation());
+            Bukkit.getLogger()
+                    .info(event.getPlayer().getName() + " tried placing " + placed.getType() + " at "
+                            + placed.getLocation());
         }
     }
 
@@ -96,8 +106,11 @@ public class Events implements Listener {
             if (item != null) {
                 if (item.getAmount() > item.getMaxStackSize()) {
                     item.setAmount(item.getMaxStackSize());
-                    Bukkit.getLogger().warning("Reverting invalid stack of " + item.getType().toString() + ".");
-                    Bukkit.getLogger().warning("Location is " + event.getPlayer().getLocation());
+                    Bukkit.getLogger()
+                            .warning("Reverting invalid stack of "
+                                    + item.getType().toString() + ".");
+                    Bukkit.getLogger()
+                            .warning("Location is " + event.getPlayer().getLocation());
                 }
             }
         }
@@ -105,7 +118,7 @@ public class Events implements Listener {
 
     // this let's players have colors in names, kinda shit but it works
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onInventoryClick(InventoryClickEvent event){
+    public void onInventoryClick(InventoryClickEvent event) {
         Inventory inventory = event.getInventory();
         if (inventory instanceof AnvilInventory) {
             InventoryView view = event.getView();
@@ -117,7 +130,8 @@ public class Events implements Listener {
                         if (meta != null) {
                             if (meta.hasDisplayName()) {
                                 String displayName = meta.getDisplayName();
-                                meta.setDisplayName(net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', displayName));
+                                meta.setDisplayName(
+                                        net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', displayName));
                                 item.setItemMeta(meta);
                             }
                         }
@@ -139,9 +153,12 @@ public class Events implements Listener {
 
     @EventHandler
     public void onMainHandChange(PlayerSwapHandItemsEvent event) {
-        if (ServerCore.lastChange.get(event.getPlayer()) != null && ServerCore.lastChange.get(event.getPlayer()) + 250 > System.currentTimeMillis()) {
+        if (ServerCore.lastChange.get(event.getPlayer()) != null
+                && ServerCore.lastChange.get(event.getPlayer()) + 250 > System.currentTimeMillis()) {
             ServerCore.warnings.put(event.getPlayer(), ServerCore.warnings.get(event.getPlayer()) + 1);
-            event.getPlayer().sendMessage(ChatColor.GOLD + "Please slow down or you will be kicked. (" + ServerCore.warnings.get(event.getPlayer()) + "/5)");
+            event.getPlayer()
+                    .sendMessage(ChatColor.GOLD + "Please slow down or you will be kicked. ("
+                            + ServerCore.warnings.get(event.getPlayer()) + "/5)");
             if (ServerCore.warnings.get(event.getPlayer()) > 4) {
                 event.getPlayer().kickPlayer("nah");
                 ServerCore.warnings.put(event.getPlayer(), 0);
@@ -158,7 +175,11 @@ public class Events implements Listener {
                 return;
             }
             if (player.getLocation().getY() > 127) {
-                Location toSpawn = new Location(player.getLocation().getWorld(), player.getLocation().getBlockX() + 0.5, 127, player.getLocation().getBlockZ() + 0.5);
+                Location toSpawn = new Location(
+                        player.getLocation().getWorld(),
+                        player.getLocation().getBlockX() + 0.5,
+                        127,
+                        player.getLocation().getBlockZ() + 0.5);
                 toSpawn.subtract(0, 1, 0).getBlock().setType(Material.AIR);
                 toSpawn.subtract(0, 1, 0).getBlock().setType(Material.AIR);
                 toSpawn.subtract(0, 1, 0).getBlock().setType(Material.NETHERRACK);

@@ -22,16 +22,19 @@ public class CommandPing implements CommandExecutor {
         switch (args.length) {
             case 0:
                 Player player = (Player) sender;
-                String pingYou = ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("ping-you").replace("{PLAYER}", player.getName()));
+                String pingYou = ChatColor.translateAlternateColorCodes(
+                        '&', serverCore.config.getString("ping-you").replace("{PLAYER}", player.getName()));
                 sender.sendMessage(PlaceholderAPI.setPlaceholders(player, pingYou));
                 return true;
             case 1:
                 Player playerOther = Bukkit.getPlayerExact(args[0]);
                 if (Bukkit.getPlayerExact(args[0]) != null && !ServerCore.isVanished(args[0])) {
-                    String pingOther = ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("ping-other").replace("{PLAYER}", playerOther.getName()));
+                    String pingOther = ChatColor.translateAlternateColorCodes(
+                            '&', serverCore.config.getString("ping-other").replace("{PLAYER}", playerOther.getName()));
                     sender.sendMessage(PlaceholderAPI.setPlaceholders(playerOther, pingOther));
                 } else {
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', serverCore.config.getString("player-not-found")));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes(
+                            '&', serverCore.config.getString("player-not-found")));
                 }
                 return true;
         }

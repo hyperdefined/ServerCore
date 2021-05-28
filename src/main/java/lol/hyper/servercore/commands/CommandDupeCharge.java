@@ -6,8 +6,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import java.util.UUID;
-
 public class CommandDupeCharge implements CommandExecutor {
 
     private final ServerCore serverCore;
