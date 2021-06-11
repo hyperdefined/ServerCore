@@ -29,3 +29,5 @@ commands:
     usage: /dupecharge
   color:
     usage: /color
+  feedback:
+    usage: /feedback

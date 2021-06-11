@@ -46,6 +46,7 @@ public final class ServerCore extends JavaPlugin {
     public AutoMessages autoMessages;
     public DupeCharges dupeChargesFUCK;
     public CommandDupeCharge commandDupeCharge;
+    public CommandFeedback commandFeedback;
     public CommandDupe commandDupe;
     public CommandColor commandColor;
     private JSONObject obj = new JSONObject();
@@ -84,6 +85,7 @@ public final class ServerCore extends JavaPlugin {
         autoMessages = new AutoMessages();
         dupeChargesFUCK = new DupeCharges(this);
         commandDupeCharge = new CommandDupeCharge(this);
+        commandFeedback = new CommandFeedback();
         commandDupe = new CommandDupe(this);
         commandColor = new CommandColor();
         loadConfig();
@@ -142,5 +144,6 @@ public final class ServerCore extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("dupe")).setExecutor(commandDupe);
         Objects.requireNonNull(this.getCommand("dupecharge")).setExecutor(commandDupeCharge);
         Objects.requireNonNull(this.getCommand("color")).setExecutor(commandColor);
+        Objects.requireNonNull(this.getCommand("feedback")).setExecutor(commandFeedback);
     }
 }
