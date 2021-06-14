@@ -4,10 +4,12 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
 public class CommandColors implements CommandExecutor {
+
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
+    public boolean onCommand(CommandSender sender, @NotNull Command command, @NotNull String s, String[] strings) {
         sender.sendMessage(ChatColor.GOLD + "--------------------------------------------");
         sender.sendMessage(ChatColor.BLACK + "&0 " + ChatColor.WHITE + "--> " + ChatColor.BLACK + "Black "
                 + ChatColor.WHITE + " (ID: black)");

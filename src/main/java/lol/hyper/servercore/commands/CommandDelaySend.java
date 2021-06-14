@@ -9,20 +9,16 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class CommandDelaySend implements CommandExecutor {
-
-    private final ServerCore serverCore;
-
-    public CommandDelaySend(ServerCore serverCore) {
-        this.serverCore = serverCore;
-    }
+public record CommandDelaySend(ServerCore serverCore) implements CommandExecutor {
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(
+            @NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         // Get player and messages.
         Player player = Bukkit.getPlayerExact(args[0]);
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(player.getUniqueId());
@@ -30,19 +26,12 @@ public class CommandDelaySend implements CommandExecutor {
         // Remove the first command arg since it's the player's name.
         messages.remove(0);
 
-        StringBuilder playerMessage = new StringBuilder();
-
-        for (String arg : messages) {
-            playerMessage.append(arg);
-            playerMessage.append(" ");
-        }
-
         Bukkit.getScheduler()
                 .scheduleSyncDelayedTask(
                         serverCore,
                         () -> {
                             String finalMessage =
-                                    PlaceholderAPI.setPlaceholders(offlinePlayer, playerMessage.toString());
+                                    PlaceholderAPI.setPlaceholders(offlinePlayer, String.join(" ", messages));
                             player.sendMessage(ChatColor.translateAlternateColorCodes('&', finalMessage));
                         },
                         20);

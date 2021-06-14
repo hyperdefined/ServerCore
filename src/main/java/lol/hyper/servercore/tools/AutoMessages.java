@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class AutoMessages {
 
-    public static HashMap<Integer, String> messages = new HashMap<>();
+    public static final HashMap<Integer, String> messages = new HashMap<>();
     static int lastMessageID = 0;
 
     public AutoMessages() {

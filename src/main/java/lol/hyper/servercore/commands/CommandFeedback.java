@@ -7,8 +7,10 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 public class CommandFeedback implements CommandExecutor {
+
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(
+            @NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         sender.sendMessage(ChatColor.GOLD + "--------------------------------------------");
         sender.sendMessage(ChatColor.DARK_AQUA + "https://github.com/limitedsurvival/Feedback/issues");
         sender.sendMessage(ChatColor.DARK_AQUA + "Track any of the current tasks on the GitHub above.");

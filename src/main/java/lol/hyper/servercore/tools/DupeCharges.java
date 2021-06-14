@@ -11,14 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.UUID;
 
-public class DupeCharges {
-
-    private static FileWriter writer;
-    private static FileReader reader;
-    private final ServerCore serverCore;
-    public DupeCharges(ServerCore serverCore) {
-        this.serverCore = serverCore;
-    }
+public record DupeCharges(ServerCore serverCore) {
 
     private JSONObject readFile(File file) {
         if (!file.exists()) {
@@ -27,7 +20,7 @@ public class DupeCharges {
         JSONParser parser = new JSONParser();
         Object obj = null;
         try {
-            reader = new FileReader(file);
+            FileReader reader = new FileReader(file);
             obj = parser.parse(reader);
             reader.close();
         } catch (IOException | ParseException e) {
@@ -40,12 +33,13 @@ public class DupeCharges {
 
     /**
      * Write data to JSON file.
-     * @param file File to write data to.
+     *
+     * @param file        File to write data to.
      * @param jsonToWrite Data to write to file. This much be a JSON string.
      */
     private void writeFile(File file, String jsonToWrite) {
         try {
-            writer = new FileWriter(file);
+            FileWriter writer = new FileWriter(file);
             writer.write(jsonToWrite);
             writer.close();
         } catch (IOException e) {

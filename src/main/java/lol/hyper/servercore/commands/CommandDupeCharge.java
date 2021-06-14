@@ -5,17 +5,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
-public class CommandDupeCharge implements CommandExecutor {
-
-    private final ServerCore serverCore;
-
-    public CommandDupeCharge(ServerCore serverCore) {
-        this.serverCore = serverCore;
-    }
+public record CommandDupeCharge(ServerCore serverCore) implements CommandExecutor {
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         String player = args[0];
         int i = Integer.parseInt(args[1]);
         serverCore.dupeChargesFUCK.updateCharges(Bukkit.getPlayerExact(player).getUniqueId(), i);

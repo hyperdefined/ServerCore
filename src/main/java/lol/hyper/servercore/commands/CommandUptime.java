@@ -8,17 +8,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-public class CommandUptime implements CommandExecutor {
-
-    private final ServerCore serverCore;
-
-    public CommandUptime(ServerCore serverCore) {
-        this.serverCore = serverCore;
-    }
+public record CommandUptime(ServerCore serverCore) implements CommandExecutor {
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         String uptimeText;
         if (sender instanceof ConsoleCommandSender) {
             uptimeText = PlaceholderAPI.setPlaceholders(

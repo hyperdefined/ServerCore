@@ -11,7 +11,8 @@ import java.util.Map;
 
 public class ColorManager {
 
-    public static ArrayList<String> colors = new ArrayList<>(Arrays.asList("black",
+    public static final ArrayList<String> colors = new ArrayList<>(Arrays.asList(
+            "black",
             "darkblue",
             "darkgreen",
             "darkaqua",
@@ -28,23 +29,25 @@ public class ColorManager {
             "yellow",
             "reset"));
 
-    public static Map<String, String> colorsToCodes = new HashMap<String, String>() {{
-        put("darkblue", String.valueOf(ChatColor.DARK_BLUE));
-        put("darkgreen", String.valueOf(ChatColor.DARK_GREEN));
-        put("darkaqua", String.valueOf(ChatColor.DARK_AQUA));
-        put("darkred", String.valueOf(ChatColor.DARK_RED));
-        put("darkpurple", String.valueOf(ChatColor.DARK_PURPLE));
-        put("gold", String.valueOf(ChatColor.GOLD));
-        put("gray", String.valueOf(ChatColor.GRAY));
-        put("darkgray", String.valueOf(ChatColor.DARK_GRAY));
-        put("blue", String.valueOf(ChatColor.BLUE));
-        put("green", String.valueOf(ChatColor.GREEN));
-        put("aqua", String.valueOf(ChatColor.AQUA));
-        put("red", String.valueOf(ChatColor.RED));
-        put("lightpurple", String.valueOf(ChatColor.LIGHT_PURPLE));
-        put("yellow", String.valueOf(ChatColor.YELLOW));
-        put("reset", String.valueOf(ChatColor.WHITE));
-    }};
+    public static final Map<String, String> colorsToCodes = new HashMap<>() {
+        {
+            put("darkblue", String.valueOf(ChatColor.DARK_BLUE));
+            put("darkgreen", String.valueOf(ChatColor.DARK_GREEN));
+            put("darkaqua", String.valueOf(ChatColor.DARK_AQUA));
+            put("darkred", String.valueOf(ChatColor.DARK_RED));
+            put("darkpurple", String.valueOf(ChatColor.DARK_PURPLE));
+            put("gold", String.valueOf(ChatColor.GOLD));
+            put("gray", String.valueOf(ChatColor.GRAY));
+            put("darkgray", String.valueOf(ChatColor.DARK_GRAY));
+            put("blue", String.valueOf(ChatColor.BLUE));
+            put("green", String.valueOf(ChatColor.GREEN));
+            put("aqua", String.valueOf(ChatColor.AQUA));
+            put("red", String.valueOf(ChatColor.RED));
+            put("lightpurple", String.valueOf(ChatColor.LIGHT_PURPLE));
+            put("yellow", String.valueOf(ChatColor.YELLOW));
+            put("reset", String.valueOf(ChatColor.WHITE));
+        }
+    };
 
     public static String getCurrentColor(Player player) {
         if (player.isOp()) {
@@ -58,19 +61,23 @@ public class ColorManager {
         return null;
     }
 
-    public static void updateUsersColor(Player player, String newColor)
-    {
-        //remove the current one first
+    public static void updateUsersColor(Player player, String newColor) {
+        // remove the current one first
         String currentColor = getCurrentColor(player);
         if (currentColor != null) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.getName() + " permission unset servercore." + currentColor);
+            Bukkit.dispatchCommand(
+                    Bukkit.getConsoleSender(),
+                    "lp user " + player.getName() + " permission unset servercore." + currentColor);
         }
 
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.getName() + " permission set servercore." + newColor + " true");
+        Bukkit.dispatchCommand(
+                Bukkit.getConsoleSender(),
+                "lp user " + player.getName() + " permission set servercore." + newColor + " true");
         if (newColor.equalsIgnoreCase("reset")) {
             player.sendMessage(ChatColor.GREEN + "You have reset your name color.");
         } else {
-            player.sendMessage(ChatColor.GREEN + "Your name color is now " + newColor + ". To reset, simple do /color reset.");
+            player.sendMessage(
+                    ChatColor.GREEN + "Your name color is now " + newColor + ". To reset, simple do /color reset.");
         }
     }
 }

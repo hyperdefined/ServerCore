@@ -8,25 +8,21 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-public class CommandPing implements CommandExecutor {
-
-    private final ServerCore serverCore;
-
-    public CommandPing(ServerCore serverCore) {
-        this.serverCore = serverCore;
-    }
+public record CommandPing(ServerCore serverCore) implements CommandExecutor {
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         switch (args.length) {
-            case 0:
+            case 0 -> {
                 Player player = (Player) sender;
                 String pingYou = ChatColor.translateAlternateColorCodes(
                         '&', serverCore.config.getString("ping-you").replace("{PLAYER}", player.getName()));
                 sender.sendMessage(PlaceholderAPI.setPlaceholders(player, pingYou));
                 return true;
-            case 1:
+            }
+            case 1 -> {
                 Player playerOther = Bukkit.getPlayerExact(args[0]);
                 if (Bukkit.getPlayerExact(args[0]) != null && !ServerCore.isVanished(args[0])) {
                     String pingOther = ChatColor.translateAlternateColorCodes(
@@ -37,6 +33,7 @@ public class CommandPing implements CommandExecutor {
                             '&', serverCore.config.getString("player-not-found")));
                 }
                 return true;
+            }
         }
         return true;
     }

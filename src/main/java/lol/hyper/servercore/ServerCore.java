@@ -10,8 +10,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,8 +47,6 @@ public final class ServerCore extends JavaPlugin {
     public CommandFeedback commandFeedback;
     public CommandDupe commandDupe;
     public CommandColor commandColor;
-    private JSONObject obj = new JSONObject();
-    private JSONArray onlinePlayers = new JSONArray();
 
     /**
      * @param player player to check if vanished
@@ -106,11 +102,6 @@ public final class ServerCore extends JavaPlugin {
                         },
                         0,
                         1200);
-
-        /*Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "br " + AutoMessages.getRandomMessage());
-        }, 0, 10000);
-         */
 
         Bukkit.getServer().getPluginManager().registerEvents(events, this);
 

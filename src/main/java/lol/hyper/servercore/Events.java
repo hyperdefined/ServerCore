@@ -20,13 +20,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.nio.charset.StandardCharsets;
 
-public class Events implements Listener {
-
-    private final ServerCore serverCore;
-
-    public Events(ServerCore serverCore) {
-        this.serverCore = serverCore;
-    }
+public record Events(ServerCore serverCore) implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
@@ -59,7 +53,7 @@ public class Events implements Listener {
                     item.setAmount(item.getMaxStackSize());
                     Bukkit.getLogger()
                             .warning("Reverting invalid stack of "
-                                    + item.getType().toString() + ".");
+                                    + item.getType() + ".");
                     Bukkit.getLogger()
                             .warning("Location is " + event.getPlayer().getLocation());
                 }
@@ -108,7 +102,7 @@ public class Events implements Listener {
                     item.setAmount(item.getMaxStackSize());
                     Bukkit.getLogger()
                             .warning("Reverting invalid stack of "
-                                    + item.getType().toString() + ".");
+                                    + item.getType() + ".");
                     Bukkit.getLogger()
                             .warning("Location is " + event.getPlayer().getLocation());
                 }
