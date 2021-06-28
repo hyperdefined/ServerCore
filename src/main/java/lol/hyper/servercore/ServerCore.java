@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -24,8 +23,6 @@ import java.util.logging.Logger;
 public final class ServerCore extends JavaPlugin {
 
     public static final UUID hyperdefined = UUID.fromString("311be5cd-d17c-49b3-bf47-f781fdbcc929");
-    public static final HashMap<Player, Long> lastChange = new HashMap<>(); // x1D - Offhand Swap fix
-    public static final HashMap<Player, Integer> warnings = new HashMap<>(); // x1D - Offhand Swap fix
     public final File configFile = new File(this.getDataFolder(), "config.yml");
     public final Path dupeCharges = Paths.get(this.getDataFolder() + File.separator + "dupecharges");
     public final Logger logger = this.getLogger();
@@ -87,11 +84,6 @@ public final class ServerCore extends JavaPlugin {
         loadConfig();
 
         registerCommands();
-
-        for (Player player : Bukkit.getOnlinePlayers()) { // x1D - Offhand Swap fix
-            lastChange.put(player, System.currentTimeMillis()); // x1D - Offhand Swap fix
-            warnings.put(player, 0); // x1D - Offhand Swap fix
-        }
 
         Bukkit.getScheduler()
                 .scheduleSyncRepeatingTask(

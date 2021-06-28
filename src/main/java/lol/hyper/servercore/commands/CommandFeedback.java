@@ -12,7 +12,7 @@ public class CommandFeedback implements CommandExecutor {
     public boolean onCommand(
             @NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         sender.sendMessage(ChatColor.GOLD + "--------------------------------------------");
-        sender.sendMessage(ChatColor.DARK_AQUA + "https://github.com/limitedsurvival/Feedback/issues");
+        sender.sendMessage(ChatColor.DARK_AQUA + "https://github.com/DESTROYMCNET/Feedback/issues");
         sender.sendMessage(ChatColor.DARK_AQUA + "Track any of the current tasks on the GitHub above.");
         sender.sendMessage(ChatColor.DARK_AQUA + "Feel free to make a new issue for any suggestions or bugs.");
         sender.sendMessage(ChatColor.GOLD + "--------------------------------------------");

@@ -12,7 +12,7 @@ public class CommandHelp implements CommandExecutor {
     public boolean onCommand(CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         sender.sendMessage(ChatColor.GOLD + "--------------------------------------------");
         sender.sendMessage(ChatColor.DARK_AQUA + "The commands list is too big to fit here.");
-        sender.sendMessage(ChatColor.DARK_AQUA + "Visit https://limitedsurvival.com/commands to see all commands.");
+        sender.sendMessage(ChatColor.DARK_AQUA + "Visit https://destroymc.net/commands to see all commands.");
         sender.sendMessage(ChatColor.GOLD + "--------------------------------------------");
         return true;
     }

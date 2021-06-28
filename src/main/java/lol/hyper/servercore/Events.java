@@ -39,13 +39,8 @@ public record Events(ServerCore serverCore) implements Listener {
                         '&', serverCore.config.getString("join-message.normal").replace("{PLAYER}", player.getName())));
             }
         }
-        player.sendMessage(ChatColor.GOLD + "Welcome to Limited Survival!");
-        player.sendMessage(
-                ChatColor.GOLD + "Make sure to /vote! Voting gives you a blue name. You also get 2 dupe charges!");
+        player.sendMessage(ChatColor.GOLD + "Welcome to DESTROYMC.NET!");
         player.sendMessage(ChatColor.GOLD + "Make sure to read /rules since this is not full anarchy.");
-
-        ServerCore.lastChange.put(event.getPlayer(), System.currentTimeMillis()); // x1D - Offhand Swap fix
-        ServerCore.warnings.put(event.getPlayer(), 0); // x1D - Offhand Swap fix
 
         for (ItemStack item : player.getInventory().getContents()) {
             if (item != null) {
@@ -111,7 +106,7 @@ public record Events(ServerCore serverCore) implements Listener {
     }
 
     // this let's players have colors in names, kinda shit but it works
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryClick(InventoryClickEvent event) {
         Inventory inventory = event.getInventory();
         if (inventory instanceof AnvilInventory) {
@@ -146,28 +141,9 @@ public record Events(ServerCore serverCore) implements Listener {
     }
 
     @EventHandler
-    public void onMainHandChange(PlayerSwapHandItemsEvent event) {
-        if (ServerCore.lastChange.get(event.getPlayer()) != null
-                && ServerCore.lastChange.get(event.getPlayer()) + 250 > System.currentTimeMillis()) {
-            ServerCore.warnings.put(event.getPlayer(), ServerCore.warnings.get(event.getPlayer()) + 1);
-            event.getPlayer()
-                    .sendMessage(ChatColor.GOLD + "Please slow down or you will be kicked. ("
-                            + ServerCore.warnings.get(event.getPlayer()) + "/5)");
-            if (ServerCore.warnings.get(event.getPlayer()) > 4) {
-                event.getPlayer().kickPlayer("nah");
-                ServerCore.warnings.put(event.getPlayer(), 0);
-            }
-        }
-        ServerCore.lastChange.put(event.getPlayer(), System.currentTimeMillis());
-    }
-
-    @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         final Player player = event.getPlayer();
         if (player.getWorld().getEnvironment() == World.Environment.NETHER) {
-            if (player.hasPermission("nonetherroof.bypass")) {
-                return;
-            }
             if (player.getLocation().getY() > 127) {
                 Location toSpawn = new Location(
                         player.getLocation().getWorld(),
@@ -180,6 +156,13 @@ public record Events(ServerCore serverCore) implements Listener {
                 player.teleport(toSpawn.add(0, 1, 0));
                 player.sendMessage(ChatColor.RED + "You are not allow to go up here.");
             }
+        }
+        if (player.getLocation().getY() < 0) {
+            Location toSpawn = new Location(player.getLocation().getWorld(), player.getLocation().getBlockX() + 0.5, 4, player.getLocation().getBlockZ() + 0.5);
+            toSpawn.add(0, 1, 0).getBlock().setType(Material.AIR);
+            toSpawn.add(0, 1, 0).getBlock().setType(Material.AIR);
+            player.teleport(toSpawn.subtract(0, 1, 0));
+            player.sendMessage(ChatColor.RED + "You are not allow to go down here.");
         }
     }
 
