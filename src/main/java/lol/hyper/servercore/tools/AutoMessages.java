@@ -1,21 +1,23 @@
 package lol.hyper.servercore.tools;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class AutoMessages {
 
-    public static final HashMap<Integer, String> messages = new HashMap<>();
+    public static final ArrayList<String> messages = new ArrayList<>();
     static int lastMessageID = 0;
 
     public AutoMessages() {
-        messages.put(1, "Make sure to /vote! Voting gives you a blue name. You also get 2 dupe charges!");
-        messages.put(2, "Hey retards, check out the subreddit!");
+        messages.add("Want to talk to the homies privately? Use /party!");
+        messages.add("This is an automated message, don't worry!");
+        messages.add("Post some cool stuff on the subreddit: /r/DestroyMC");
+        messages.add("Use /help for all commands.");
     }
 
     public static String getRandomMessage() {
         Random generator = new Random();
-        Object[] values = messages.values().toArray();
+        Object[] values = messages.toArray();
         int random = generator.nextInt(values.length);
         while (random == lastMessageID) {
             random = generator.nextInt(values.length);

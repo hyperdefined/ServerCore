@@ -4,6 +4,7 @@ import lol.hyper.servercore.tools.ColorManager;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -143,6 +144,7 @@ public record Events(ServerCore serverCore) implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         final Player player = event.getPlayer();
+
         if (player.getWorld().getEnvironment() == World.Environment.NETHER) {
             if (player.getLocation().getY() > 127) {
                 Location toSpawn = new Location(

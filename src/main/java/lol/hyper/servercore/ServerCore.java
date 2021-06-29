@@ -95,6 +95,13 @@ public final class ServerCore extends JavaPlugin {
                         0,
                         1200);
 
+        Bukkit.getScheduler()
+                .scheduleSyncRepeatingTask(
+                        this,
+                        () -> Bukkit.broadcastMessage(AutoMessages.getRandomMessage()),
+                        0,
+                        12000);
+
         Bukkit.getServer().getPluginManager().registerEvents(events, this);
 
         if (!dupeCharges.toFile().exists()) {
