@@ -1,6 +1,7 @@
 package lol.hyper.servercore.events;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -23,6 +24,9 @@ public class InventoryClick implements Listener {
         if (inventory instanceof AnvilInventory) {
             AnvilInventory inv = (AnvilInventory) event.getInventory();
             ItemStack itemStack = inv.getItem(2);
+            if (itemStack == null || itemStack.getType() == Material.AIR) {
+                return;
+            }
             ItemMeta meta = itemStack.getItemMeta();
             if (meta.hasDisplayName()) {
                 String displayName = meta.getDisplayName();
