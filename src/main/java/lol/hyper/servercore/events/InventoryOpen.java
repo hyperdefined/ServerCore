@@ -2,10 +2,11 @@ package lol.hyper.servercore.events;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class InventoryOpen {
+public class InventoryOpen implements Listener {
 
     @EventHandler
     public void onOpen(InventoryOpenEvent event) {

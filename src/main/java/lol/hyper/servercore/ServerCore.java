@@ -1,6 +1,7 @@
 package lol.hyper.servercore;
 
 import lol.hyper.servercore.commands.*;
+import lol.hyper.servercore.events.*;
 import lol.hyper.servercore.tools.AutoMessages;
 import lol.hyper.servercore.tools.DupeCharges;
 import lol.hyper.servercore.tools.FuckWitherSkulls;
@@ -27,7 +28,14 @@ public final class ServerCore extends JavaPlugin {
     public final Path dupeCharges = Paths.get(this.getDataFolder() + File.separator + "dupecharges");
     public final Logger logger = this.getLogger();
     public FileConfiguration config = this.getConfig();
-    public Events events;
+    public AsyncPlayerChat asyncPlayerChat;
+    public BlockPlace blockPlace;
+    public InventoryClick inventoryClick;
+    public InventoryOpen inventoryOpen;
+    public PlayerEditBook playerEditBook;
+    public PlayerJoin playerJoin;
+    public PlayerLeave playerLeave;
+    public PlayerMove playerMove;
     public CommandBroadcast commandBroadcast;
     public CommandColors commandColors;
     public CommandDelaySend commandDelaySend;
@@ -65,7 +73,14 @@ public final class ServerCore extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        events = new Events(this);
+        asyncPlayerChat = new AsyncPlayerChat();
+        blockPlace = new BlockPlace();
+        inventoryClick = new InventoryClick();
+        inventoryOpen = new InventoryOpen();
+        playerEditBook = new PlayerEditBook();
+        playerJoin = new PlayerJoin(this);
+        playerLeave = new PlayerLeave(this);
+        playerMove = new PlayerMove(this);
         commandColors = new CommandColors();
         commandBroadcast = new CommandBroadcast();
         commandDelaySend = new CommandDelaySend(this);
@@ -104,7 +119,14 @@ public final class ServerCore extends JavaPlugin {
                         0,
                         12000);
 
-        Bukkit.getServer().getPluginManager().registerEvents(events, this);
+        Bukkit.getServer().getPluginManager().registerEvents(asyncPlayerChat, this);
+        Bukkit.getServer().getPluginManager().registerEvents(blockPlace, this);
+        Bukkit.getServer().getPluginManager().registerEvents(inventoryClick, this);
+        Bukkit.getServer().getPluginManager().registerEvents(inventoryOpen, this);
+        Bukkit.getServer().getPluginManager().registerEvents(playerEditBook, this);
+        Bukkit.getServer().getPluginManager().registerEvents(playerJoin, this);
+        Bukkit.getServer().getPluginManager().registerEvents(playerLeave, this);
+        Bukkit.getServer().getPluginManager().registerEvents(playerMove, this);
 
         if (!dupeCharges.toFile().exists()) {
             try {
