@@ -12,9 +12,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class PlayerMove implements Listener {
 
     private final ServerCore serverCore;
+    public Set<Player> rightClicked = new HashSet<>();
 
     public PlayerMove(ServerCore serverCore) {
         this.serverCore = serverCore;
@@ -25,6 +29,10 @@ public class PlayerMove implements Listener {
         final Player player = event.getPlayer();
 
         if (player.isInsideVehicle()) {
+            if (rightClicked.contains(player)) {
+                rightClicked.remove(player);
+                return;
+            }
             Entity vehicle = player.getVehicle();
             Location oldLoc = event.getFrom();
             Location newLoc = event.getTo();
@@ -60,7 +68,11 @@ public class PlayerMove implements Listener {
             }
         }
         if (player.getLocation().getY() < 0) {
-            Location toSpawn = new Location(player.getLocation().getWorld(), player.getLocation().getBlockX() + 0.5, 4, player.getLocation().getBlockZ() + 0.5);
+            Location toSpawn = new Location(
+                    player.getLocation().getWorld(),
+                    player.getLocation().getBlockX() + 0.5,
+                    4,
+                    player.getLocation().getBlockZ() + 0.5);
             toSpawn.add(0, 1, 0).getBlock().setType(Material.AIR);
             toSpawn.add(0, 1, 0).getBlock().setType(Material.AIR);
             player.teleport(toSpawn.subtract(0, 1, 0));
