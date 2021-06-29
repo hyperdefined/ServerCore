@@ -44,6 +44,7 @@ public final class ServerCore extends JavaPlugin {
     public CommandFeedback commandFeedback;
     public CommandDupe commandDupe;
     public CommandColor commandColor;
+    public CommandReload commandReload;
 
     /**
      * @param player player to check if vanished
@@ -81,6 +82,7 @@ public final class ServerCore extends JavaPlugin {
         commandFeedback = new CommandFeedback();
         commandDupe = new CommandDupe(this);
         commandColor = new CommandColor();
+        commandReload = new CommandReload(this);
         loadConfig();
 
         registerCommands();
@@ -135,5 +137,6 @@ public final class ServerCore extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("dupecharge")).setExecutor(commandDupeCharge);
         Objects.requireNonNull(this.getCommand("color")).setExecutor(commandColor);
         Objects.requireNonNull(this.getCommand("feedback")).setExecutor(commandFeedback);
+        Objects.requireNonNull(this.getCommand("sfr")).setExecutor(commandReload);
     }
 }

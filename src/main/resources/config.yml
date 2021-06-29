@@ -13,3 +13,5 @@ player-not-found: "&cThat player was not found."
 uptime: "&6Server has been online for %server_uptime%."
 
 enable-dupe: false
+
+boat-speed: 10

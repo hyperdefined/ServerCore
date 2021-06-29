@@ -31,3 +31,5 @@ commands:
     usage: /color
   feedback:
     usage: /feedback
+  sfr:
+    usage: /sfr
