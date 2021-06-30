@@ -28,21 +28,6 @@ public class PlayerMove implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         final Player player = event.getPlayer();
 
-        if (player.isGliding()) {
-            Location oldLoc = event.getFrom();
-            Location newLoc = event.getTo();
-
-            double distX = newLoc.getX() - oldLoc.getX();
-            double distZ = newLoc.getZ() - oldLoc.getZ();
-            double speed = Math.hypot(distX, distZ);
-
-            if (speed > serverCore.config.getInt("elytra-speed")) {
-                player.setGliding(false);
-                player.setVelocity(new Vector(0, 0, 0));
-                player.sendMessage(ChatColor.RED + "You are going too fast.");
-            }
-        }
-
         if (player.isInsideVehicle()) {
             if (mounted.containsKey(player)) {
                 return;
