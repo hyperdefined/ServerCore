@@ -97,13 +97,13 @@ public final class ServerCore extends JavaPlugin {
         commandPing = new CommandPing(this);
         commandRules = new CommandRules();
         commandUptime = new CommandUptime(this);
-        autoMessages = new AutoMessages(this);
         dupeChargesFUCK = new DupeCharges(this);
         commandDupeCharge = new CommandDupeCharge(this);
         commandFeedback = new CommandFeedback();
         commandDupe = new CommandDupe(this);
         commandColor = new CommandColor();
         commandReload = new CommandReload(this);
+        autoMessages = new AutoMessages();
         loadConfig();
 
         registerCommands();
