@@ -16,4 +16,12 @@ enable-dupe: false
 
 entity-speed: 1
 
-elytra-speed: 10
+elytra-nether-speed: 1.5
+
+auto-messages:
+  - "Want to talk to the homies privately? Use /party!"
+  - "This is an automated message, don't worry!"
+  - "Post some cool stuff on the subreddit: /r/DestroyMC"
+  - "Use /help for all commands."
+  - "Have a suggestion or found a bug? Report it at https://github.com/DESTROYMCNET/Feedback"
+  - "Make to vote for the server on voting sites! Do /vote!"

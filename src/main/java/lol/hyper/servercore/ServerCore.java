@@ -97,7 +97,7 @@ public final class ServerCore extends JavaPlugin {
         commandPing = new CommandPing(this);
         commandRules = new CommandRules();
         commandUptime = new CommandUptime(this);
-        autoMessages = new AutoMessages();
+        autoMessages = new AutoMessages(this);
         dupeChargesFUCK = new DupeCharges(this);
         commandDupeCharge = new CommandDupeCharge(this);
         commandFeedback = new CommandFeedback();
@@ -121,7 +121,7 @@ public final class ServerCore extends JavaPlugin {
         Bukkit.getScheduler()
                 .scheduleSyncRepeatingTask(
                         this,
-                        () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "br " + AutoMessages.getRandomMessage()),
+                        () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "br " + autoMessages.getRandomMessage()),
                         0,
                         12000);
 
@@ -151,6 +151,9 @@ public final class ServerCore extends JavaPlugin {
             this.saveResource("config.yml", true);
         }
         config = YamlConfiguration.loadConfiguration(configFile);
+
+        autoMessages.messages.clear();
+        autoMessages.messages.addAll(config.getStringList("auto-messages"));
     }
 
     private void registerCommands() {

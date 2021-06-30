@@ -28,6 +28,23 @@ public class PlayerMove implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         final Player player = event.getPlayer();
 
+        if (player.isGliding()) {
+            if (player.getWorld().getEnvironment() == World.Environment.NETHER) {
+                if (player.getLocation().getY() > 127) {
+                    Location oldLoc = event.getFrom();
+                    Location newLoc = event.getTo();
+
+                    double distX = newLoc.getX() - oldLoc.getX();
+                    double distZ = newLoc.getZ() - oldLoc.getZ();
+                    double speed = Math.hypot(distX, distZ);
+
+                    if (speed > serverCore.config.getInt("elytra-nether-speed")) {
+                        player.setGliding(false);
+                    }
+                }
+            }
+        }
+
         if (player.isInsideVehicle()) {
             if (mounted.containsKey(player)) {
                 return;
@@ -53,20 +70,6 @@ public class PlayerMove implements Listener {
             }
         }
 
-        if (player.getWorld().getEnvironment() == World.Environment.NETHER) {
-            if (player.getLocation().getY() > 127) {
-                Location toSpawn = new Location(
-                        player.getLocation().getWorld(),
-                        player.getLocation().getBlockX() + 0.5,
-                        127,
-                        player.getLocation().getBlockZ() + 0.5);
-                toSpawn.subtract(0, 1, 0).getBlock().setType(Material.AIR);
-                toSpawn.subtract(0, 1, 0).getBlock().setType(Material.AIR);
-                toSpawn.subtract(0, 1, 0).getBlock().setType(Material.NETHERRACK);
-                player.teleport(toSpawn.add(0, 1, 0));
-                player.sendMessage(ChatColor.RED + "You are not allow to go up here.");
-            }
-        }
         if (player.getLocation().getY() < 0) {
             Location toSpawn = new Location(
                     player.getLocation().getWorld(),

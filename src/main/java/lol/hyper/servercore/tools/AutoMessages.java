@@ -1,22 +1,22 @@
 package lol.hyper.servercore.tools;
 
+import lol.hyper.servercore.ServerCore;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 public class AutoMessages {
 
-    public static final ArrayList<String> messages = new ArrayList<>();
-    static int lastMessageID = 0;
+    private ServerCore serverCore;
 
-    public AutoMessages() {
-        messages.add("Want to talk to the homies privately? Use /party!");
-        messages.add("This is an automated message, don't worry!");
-        messages.add("Post some cool stuff on the subreddit: /r/DestroyMC");
-        messages.add("Use /help for all commands.");
-        messages.add("Have a suggestion or found a bug? Report it at https://github.com/DESTROYMCNET/Feedback");
+    public AutoMessages(ServerCore serverCore) {
+        this.serverCore = serverCore;
     }
 
-    public static String getRandomMessage() {
+    public final ArrayList<String> messages = new ArrayList<>();
+    static int lastMessageID = 0;
+
+    public String getRandomMessage() {
         Random generator = new Random();
         Object[] values = messages.toArray();
         int random = generator.nextInt(values.length);
