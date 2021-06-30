@@ -13,6 +13,7 @@ public class AutoMessages {
         messages.add("This is an automated message, don't worry!");
         messages.add("Post some cool stuff on the subreddit: /r/DestroyMC");
         messages.add("Use /help for all commands.");
+        messages.add("Have a suggestion or found a bug? Report it at https://github.com/DESTROYMCNET/Feedback");
     }
 
     public static String getRandomMessage() {
