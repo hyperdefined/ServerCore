@@ -13,8 +13,7 @@ public class EntityDamage implements Listener {
     public void onDamage(EntityDamageEvent event) {
         Entity entity = event.getEntity();
 
-        if (entity instanceof Player) {
-            Player player = (Player) event;
+        if (entity instanceof Player player) {
             if (player.getInventory().getChestplate() == null) {
                 return;
             }
