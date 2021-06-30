@@ -11,8 +11,7 @@ public class CommandDonate implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         sender.sendMessage(ChatColor.GOLD + "--------------------------------------------");
-        sender.sendMessage(ChatColor.DARK_AQUA + "https://donate.destroymc.net");
-        sender.sendMessage(ChatColor.DARK_AQUA + "Donating allows you to change the color of your name permanently.");
+        sender.sendMessage(ChatColor.DARK_AQUA + "https://destroymc.net/donate");
         sender.sendMessage(ChatColor.DARK_AQUA + "We aren't taking donations currently.");
         sender.sendMessage(ChatColor.GOLD + "--------------------------------------------");
         return true;
