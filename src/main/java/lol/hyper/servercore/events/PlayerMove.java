@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 import java.util.HashMap;
 
@@ -37,6 +38,7 @@ public class PlayerMove implements Listener {
 
             if (speed > serverCore.config.getInt("elytra-speed")) {
                 player.setGliding(false);
+                player.setVelocity(new Vector(0, 0, 0));
                 player.sendMessage(ChatColor.RED + "You are going too fast.");
             }
         }
@@ -58,6 +60,7 @@ public class PlayerMove implements Listener {
                 new BukkitRunnable() {
                     public void run() {
                         vehicle.eject();
+                        vehicle.setVelocity(new Vector(0, 0, 0));
                     }
                 }.runTaskLater(serverCore, 1L);
 
