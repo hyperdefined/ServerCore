@@ -121,7 +121,7 @@ public final class ServerCore extends JavaPlugin {
         Bukkit.getScheduler()
                 .scheduleSyncRepeatingTask(
                         this,
-                        () -> Bukkit.broadcastMessage(AutoMessages.getRandomMessage()),
+                        () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "br " + AutoMessages.getRandomMessage()),
                         0,
                         12000);
 
