@@ -40,6 +40,7 @@ public class PlayerMove implements Listener {
 
                     if (speed > serverCore.config.getInt("elytra-nether-speed")) {
                         player.setGliding(false);
+                        event.setTo(oldLoc);
                     }
                 }
             }
@@ -62,7 +63,7 @@ public class PlayerMove implements Listener {
                 new BukkitRunnable() {
                     public void run() {
                         vehicle.eject();
-                        vehicle.setVelocity(new Vector(0, 0, 0));
+                        event.setTo(oldLoc);
                     }
                 }.runTaskLater(serverCore, 1L);
 
