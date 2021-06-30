@@ -33,6 +33,7 @@ public final class ServerCore extends JavaPlugin {
     public InventoryClick inventoryClick;
     public InventoryOpen inventoryOpen;
     public PlayerEditBook playerEditBook;
+    public PlayerInteractEntity playerInteractEntity;
     public PlayerJoin playerJoin;
     public PlayerLeave playerLeave;
     public PlayerMove playerMove;
@@ -78,6 +79,7 @@ public final class ServerCore extends JavaPlugin {
         inventoryClick = new InventoryClick();
         inventoryOpen = new InventoryOpen();
         playerEditBook = new PlayerEditBook();
+        playerInteractEntity = new PlayerInteractEntity(this);
         playerJoin = new PlayerJoin(this);
         playerLeave = new PlayerLeave(this);
         playerMove = new PlayerMove(this);
@@ -124,6 +126,7 @@ public final class ServerCore extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(inventoryClick, this);
         Bukkit.getServer().getPluginManager().registerEvents(inventoryOpen, this);
         Bukkit.getServer().getPluginManager().registerEvents(playerEditBook, this);
+        Bukkit.getServer().getPluginManager().registerEvents(playerInteractEntity, this);
         Bukkit.getServer().getPluginManager().registerEvents(playerJoin, this);
         Bukkit.getServer().getPluginManager().registerEvents(playerLeave, this);
         Bukkit.getServer().getPluginManager().registerEvents(playerMove, this);

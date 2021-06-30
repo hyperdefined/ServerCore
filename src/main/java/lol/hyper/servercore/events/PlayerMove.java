@@ -12,13 +12,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
 
 public class PlayerMove implements Listener {
 
     private final ServerCore serverCore;
-    public Set<Player> rightClicked = new HashSet<>();
+    public HashMap<Player, Boolean> mounted = new HashMap<>();
 
     public PlayerMove(ServerCore serverCore) {
         this.serverCore = serverCore;
@@ -28,9 +27,22 @@ public class PlayerMove implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         final Player player = event.getPlayer();
 
+        if (player.isGliding()) {
+            Location oldLoc = event.getFrom();
+            Location newLoc = event.getTo();
+
+            double distX = newLoc.getX() - oldLoc.getX();
+            double distZ = newLoc.getZ() - oldLoc.getZ();
+            double speed = Math.hypot(distX, distZ);
+
+            if (speed > serverCore.config.getInt("elytra-speed")) {
+                player.setGliding(false);
+                player.sendMessage(ChatColor.RED + "You are going too fast.");
+            }
+        }
+
         if (player.isInsideVehicle()) {
-            if (rightClicked.contains(player)) {
-                rightClicked.remove(player);
+            if (mounted.containsKey(player)) {
                 return;
             }
             Entity vehicle = player.getVehicle();
@@ -42,7 +54,7 @@ public class PlayerMove implements Listener {
             double speed = Math.hypot(distX, distZ);
 
             // this will still eject if you right click from a distance
-            if (speed > serverCore.config.getInt("boat-speed")) {
+            if (speed > serverCore.config.getInt("entity-speed")) {
                 new BukkitRunnable() {
                     public void run() {
                         vehicle.eject();
