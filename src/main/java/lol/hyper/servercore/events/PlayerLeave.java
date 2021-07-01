@@ -26,6 +26,6 @@ public class PlayerLeave implements Listener {
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', publicLeave));
         }
         player.setGliding(false);
-        serverCore.playerMove.mounted.remove(player);
+        serverCore.playerMove.ignoreMovement.remove(player);
     }
 }

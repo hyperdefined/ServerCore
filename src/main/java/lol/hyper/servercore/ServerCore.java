@@ -31,7 +31,6 @@ public final class ServerCore extends JavaPlugin {
     public AsyncPlayerChat asyncPlayerChat;
     public BlockPlace blockPlace;
     public EntityDamage entityDamage;
-    public EntityDismount entityDismount;
     public InventoryClick inventoryClick;
     public InventoryOpen inventoryOpen;
     public PlayerEditBook playerEditBook;
@@ -79,7 +78,6 @@ public final class ServerCore extends JavaPlugin {
         asyncPlayerChat = new AsyncPlayerChat();
         blockPlace = new BlockPlace();
         entityDamage = new EntityDamage();
-        entityDismount = new EntityDismount(this);
         inventoryClick = new InventoryClick();
         inventoryOpen = new InventoryOpen();
         playerEditBook = new PlayerEditBook();
@@ -128,7 +126,6 @@ public final class ServerCore extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(asyncPlayerChat, this);
         Bukkit.getServer().getPluginManager().registerEvents(blockPlace, this);
         Bukkit.getServer().getPluginManager().registerEvents(entityDamage, this);
-        Bukkit.getServer().getPluginManager().registerEvents(entityDismount, this);
         Bukkit.getServer().getPluginManager().registerEvents(inventoryClick, this);
         Bukkit.getServer().getPluginManager().registerEvents(inventoryOpen, this);
         Bukkit.getServer().getPluginManager().registerEvents(playerEditBook, this);

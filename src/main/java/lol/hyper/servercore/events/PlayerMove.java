@@ -14,11 +14,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class PlayerMove implements Listener {
 
     private final ServerCore serverCore;
-    public HashMap<Player, Boolean> mounted = new HashMap<>();
+    public Set<Player> ignoreMovement = new HashSet<>();
 
     public PlayerMove(ServerCore serverCore) {
         this.serverCore = serverCore;
@@ -47,7 +49,7 @@ public class PlayerMove implements Listener {
         }
 
         if (player.isInsideVehicle()) {
-            if (mounted.containsKey(player)) {
+            if (ignoreMovement.contains(player)) {
                 return;
             }
             Entity vehicle = player.getVehicle();
@@ -62,8 +64,8 @@ public class PlayerMove implements Listener {
             if (speed > serverCore.config.getInt("entity-speed")) {
                 new BukkitRunnable() {
                     public void run() {
-                        vehicle.eject();
                         event.setTo(oldLoc);
+                        vehicle.removePassenger(player);
                     }
                 }.runTaskLater(serverCore, 1L);
 
@@ -72,15 +74,18 @@ public class PlayerMove implements Listener {
         }
 
         if (player.getLocation().getY() < 0) {
-            Location toSpawn = new Location(
-                    player.getLocation().getWorld(),
-                    player.getLocation().getBlockX() + 0.5,
-                    4,
-                    player.getLocation().getBlockZ() + 0.5);
-            toSpawn.add(0, 1, 0).getBlock().setType(Material.AIR);
-            toSpawn.add(0, 1, 0).getBlock().setType(Material.AIR);
-            player.teleport(toSpawn.subtract(0, 1, 0));
-            player.sendMessage(ChatColor.RED + "You are not allow to go down here.");
+            World world = player.getWorld();
+            if (world.getEnvironment() == World.Environment.NETHER || world.getEnvironment() == World.Environment.NORMAL) {
+                Location toSpawn = new Location(
+                        player.getLocation().getWorld(),
+                        player.getLocation().getBlockX() + 0.5,
+                        4,
+                        player.getLocation().getBlockZ() + 0.5);
+                toSpawn.add(0, 1, 0).getBlock().setType(Material.AIR);
+                toSpawn.add(0, 1, 0).getBlock().setType(Material.AIR);
+                player.teleport(toSpawn.subtract(0, 1, 0));
+                player.sendMessage(ChatColor.RED + "You are not allow to go down here.");
+            }
         }
     }
 }
