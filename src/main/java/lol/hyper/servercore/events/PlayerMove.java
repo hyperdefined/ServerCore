@@ -65,12 +65,12 @@ public class PlayerMove implements Listener {
                 double speed = Math.hypot(distX, distZ);
 
                 if (speed > serverCore.config.getInt("elytra-nether-speed")) {
-                    player.setGliding(false);
+                    event.setCancelled(true);
                     event.setTo(oldLoc);
                 }
             }
         }
-        
+
         if (player.getLocation().getY() < 0) {
             World world = player.getWorld();
             if (world.getEnvironment() == World.Environment.NETHER || world.getEnvironment() == World.Environment.NORMAL) {
