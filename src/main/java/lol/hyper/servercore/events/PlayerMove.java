@@ -34,7 +34,6 @@ public class PlayerMove implements Listener {
             if (ignoreMovement.contains(player)) {
                 return;
             }
-            Entity vehicle = player.getVehicle();
             Location oldLoc = event.getFrom();
             Location newLoc = event.getTo();
 
@@ -47,7 +46,7 @@ public class PlayerMove implements Listener {
                 new BukkitRunnable() {
                     public void run() {
                         event.setTo(oldLoc);
-                        vehicle.removePassenger(player);
+                        player.leaveVehicle();
                     }
                 }.runTaskLater(serverCore, 1L);
 
