@@ -57,6 +57,7 @@ public class PlayerMove implements Listener {
                 if (speed > serverCore.config.getInt("elytra-nether-speed")) {
                     event.setCancelled(true);
                     event.setTo(oldLoc);
+                    player.sendMessage(ChatColor.RED + "You are going too fast.");
                 }
             }
         }
