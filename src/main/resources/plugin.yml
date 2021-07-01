@@ -33,3 +33,5 @@ commands:
     usage: /feedback
   sfr:
     usage: /sfr
+  qrestart:
+    usage: /qrestart

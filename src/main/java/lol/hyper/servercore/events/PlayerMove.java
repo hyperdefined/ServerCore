@@ -5,15 +5,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -67,7 +63,8 @@ public class PlayerMove implements Listener {
 
         if (player.getLocation().getY() < 0) {
             World world = player.getWorld();
-            if (world.getEnvironment() == World.Environment.NETHER || world.getEnvironment() == World.Environment.NORMAL) {
+            if (world.getEnvironment() == World.Environment.NETHER
+                    || world.getEnvironment() == World.Environment.NORMAL) {
                 Location toSpawn = new Location(
                         player.getLocation().getWorld(),
                         player.getLocation().getBlockX() + 0.5,
