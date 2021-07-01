@@ -43,13 +43,8 @@ public class PlayerMove implements Listener {
 
             // this will still eject if you right click from a distance
             if (speed > serverCore.config.getInt("entity-speed")) {
-                new BukkitRunnable() {
-                    public void run() {
-                        event.setTo(oldLoc);
-                        player.leaveVehicle();
-                    }
-                }.runTaskLater(serverCore, 1L);
-
+                event.setTo(oldLoc);
+                player.leaveVehicle();
                 player.sendMessage(ChatColor.RED + "You are going too fast.");
             }
         }
