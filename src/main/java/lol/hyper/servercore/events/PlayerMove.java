@@ -30,24 +30,6 @@ public class PlayerMove implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         final Player player = event.getPlayer();
 
-        if (player.isGliding()) {
-            if (player.getWorld().getEnvironment() == World.Environment.NETHER) {
-                if (player.getLocation().getY() > 127) {
-                    Location oldLoc = event.getFrom();
-                    Location newLoc = event.getTo();
-
-                    double distX = newLoc.getX() - oldLoc.getX();
-                    double distZ = newLoc.getZ() - oldLoc.getZ();
-                    double speed = Math.hypot(distX, distZ);
-
-                    if (speed > serverCore.config.getInt("elytra-nether-speed")) {
-                        player.setGliding(false);
-                        event.setTo(oldLoc);
-                    }
-                }
-            }
-        }
-
         if (player.isInsideVehicle()) {
             if (ignoreMovement.contains(player)) {
                 return;
@@ -73,6 +55,22 @@ public class PlayerMove implements Listener {
             }
         }
 
+        if (player.getWorld().getEnvironment() == World.Environment.NETHER) {
+            if (player.getLocation().getY() > 127) {
+                Location oldLoc = event.getFrom();
+                Location newLoc = event.getTo();
+
+                double distX = newLoc.getX() - oldLoc.getX();
+                double distZ = newLoc.getZ() - oldLoc.getZ();
+                double speed = Math.hypot(distX, distZ);
+
+                if (speed > serverCore.config.getInt("elytra-nether-speed")) {
+                    player.setGliding(false);
+                    event.setTo(oldLoc);
+                }
+            }
+        }
+        
         if (player.getLocation().getY() < 0) {
             World world = player.getWorld();
             if (world.getEnvironment() == World.Environment.NETHER || world.getEnvironment() == World.Environment.NORMAL) {
