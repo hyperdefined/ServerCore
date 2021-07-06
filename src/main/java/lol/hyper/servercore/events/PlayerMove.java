@@ -24,44 +24,63 @@ public class PlayerMove implements Listener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
-        final Player player = event.getPlayer();
+        Player player = event.getPlayer();
+        Location oldLoc = event.getFrom();
+        Location newLoc = event.getTo();
+        double distX = newLoc.getX() - oldLoc.getX();
+        double distZ = newLoc.getZ() - oldLoc.getZ();
+        double speed = Math.hypot(distX, distZ);
+
+        System.out.println(speed);
 
         if (player.isInsideVehicle()) {
             if (ignoreMovement.contains(player)) {
                 return;
             }
-            Location oldLoc = event.getFrom();
-            Location newLoc = event.getTo();
-
-            double distX = newLoc.getX() - oldLoc.getX();
-            double distZ = newLoc.getZ() - oldLoc.getZ();
-            double speed = Math.hypot(distX, distZ);
-
-            // this will still eject if you right click from a distance
-            if (speed > serverCore.config.getInt("entity-speed")) {
-                event.setTo(oldLoc);
-                player.leaveVehicle();
-                player.sendMessage(ChatColor.RED + "You are going too fast.");
+            if (player.getWorld().getEnvironment() == World.Environment.NETHER && player.getLocation().getY() > 127) {
+                if (speed > serverCore.config.getDouble("speed.entity.nether")) {
+                    event.setTo(oldLoc);
+                    player.leaveVehicle();
+                    player.sendMessage(ChatColor.RED + "You are going too fast.");
+                }
+            } else {
+                if (speed > serverCore.config.getDouble("speed.entity.overworld")) {
+                    event.setTo(oldLoc);
+                    player.leaveVehicle();
+                    player.sendMessage(ChatColor.RED + "You are going too fast.");
+                }
             }
-        }
-
-        if (player.getWorld().getEnvironment() == World.Environment.NETHER) {
-            if (player.getLocation().getY() > 127) {
-                Location oldLoc = event.getFrom();
-                Location newLoc = event.getTo();
-
-                double distX = newLoc.getX() - oldLoc.getX();
-                double distZ = newLoc.getZ() - oldLoc.getZ();
-                double speed = Math.hypot(distX, distZ);
-
-                if (speed > serverCore.config.getInt("elytra-nether-speed")) {
+        } else if (player.isGliding()) {
+            if (player.getWorld().getEnvironment() == World.Environment.NETHER && player.getLocation().getY() > 127) {
+                if (speed > serverCore.config.getDouble("speed.elytra.max-speed-nether")) {
+                    event.setCancelled(true);
+                    player.setGliding(false);
+                    event.setTo(oldLoc);
+                    player.sendMessage(ChatColor.RED + "You are going too fast.");
+                }
+            } else {
+                if (speed > serverCore.config.getDouble("speed.elytra.max-speed-overworld")) {
+                    event.setCancelled(true);
+                    player.setGliding(false);
+                    event.setTo(oldLoc);
+                    player.sendMessage(ChatColor.RED + "You are going too fast.");
+                }
+            }
+        } else {
+            if (player.getWorld().getEnvironment() == World.Environment.NETHER && player.getLocation().getY() > 127) {
+                if (speed > serverCore.config.getDouble("speed.normal.max-speed-nether")) {
+                    event.setCancelled(true);
+                    event.setTo(oldLoc);
+                    player.sendMessage(ChatColor.RED + "You are going too fast.");
+                }
+            } else {
+                if (speed > serverCore.config.getDouble("speed.normal.max-speed-overworld")) {
                     event.setCancelled(true);
                     event.setTo(oldLoc);
                     player.sendMessage(ChatColor.RED + "You are going too fast.");
                 }
             }
         }
-
         if (player.getLocation().getY() < 0) {
             World world = player.getWorld();
             if (world.getEnvironment() == World.Environment.NETHER

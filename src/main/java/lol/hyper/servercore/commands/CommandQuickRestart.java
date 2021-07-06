@@ -1,7 +1,6 @@
 package lol.hyper.servercore.commands;
 
 import lol.hyper.servercore.ServerCore;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -175,13 +174,11 @@ public class CommandQuickRestart implements CommandExecutor {
     private String getConfigMessage(String configPath, int time) {
         String rawMessage = serverCore.config.getString(configPath);
         rawMessage = rawMessage.replace("{TIME}", Integer.toString(time));
-        rawMessage = PlaceholderAPI.setPlaceholders(Bukkit.getOfflinePlayer(serverCore.hyperdefined), rawMessage);
         return ChatColor.translateAlternateColorCodes('&', rawMessage);
     }
 
     private String getConfigMessage(String configPath) {
         String rawMessage = serverCore.config.getString(configPath);
-        rawMessage = PlaceholderAPI.setPlaceholders(Bukkit.getOfflinePlayer(serverCore.hyperdefined), rawMessage);
         return ChatColor.translateAlternateColorCodes('&', rawMessage);
     }
 }

@@ -1,3 +1,22 @@
+command-messages:
+  restarts:
+    restarting: "Restarting..."
+    # Used for daily restarts.
+    daily-minutes: "Daily restart in {TIME} minutes..."
+    daily-minute: "Daily restart in {TIME} minute..."
+    daily-seconds: "Daily restart in {TIME} seconds..."
+    daily-second: "Daily restart in {TIME} second..."
+    # Used for quick restarts.
+    quick-minutes: "Quick restart in {TIME} minutes..."
+    quick-minute: "Quick restart in {TIME} minute..."
+    quick-seconds: "Quick restart in {TIME} seconds..."
+    quick-second: "Quick restart in {TIME} second..."
+    # Used for maintenance.
+    maintenance-minutes: "Maintenance in {TIME} minutes..."
+    maintenance-minute: "Maintenance in {TIME} minute..."
+    maintenance-seconds: "Maintenance in {TIME} seconds..."
+    maintenance-second: "Maintenance in {TIME} second..."
+
 join-message:
   first: "&6{PLAYER}&3 has joined the server for the first time! (#%server_unique_joins%)"
   normal: "&6{PLAYER}&3 has joined the server."
@@ -14,9 +33,16 @@ uptime: "&6Server has been online for %server_uptime%."
 
 enable-dupe: false
 
-entity-speed: 1
-
-elytra-nether-speed: 1.5
+speed:
+  elytra:
+    max-speed-overworld: 2.5
+    max-speed-nether: 1.2
+  normal:
+    max-speed-overworld: 1.2
+    max-speed-nether: 0.7
+  entity:
+    overworld: 1.5
+    nether: 0.9
 
 auto-messages:
   - "Want to talk to the homies privately? Use /party!"
