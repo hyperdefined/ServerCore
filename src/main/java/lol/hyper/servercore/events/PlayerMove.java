@@ -31,8 +31,6 @@ public class PlayerMove implements Listener {
         double distZ = newLoc.getZ() - oldLoc.getZ();
         double speed = Math.hypot(distX, distZ);
 
-        System.out.println(speed);
-
         if (player.isInsideVehicle()) {
             if (ignoreMovement.contains(player)) {
                 return;
