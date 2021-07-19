@@ -12,10 +12,12 @@ public class AsyncPlayerChat implements Listener {
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
+        String color;
         if (ColorManager.getCurrentColor(player) == null) {
-            return;
+            color = ColorManager.colorsToCodes.get("reset");
+        } else {
+            color = ColorManager.colorsToCodes.get(ColorManager.getCurrentColor(player));
         }
-        String color = ColorManager.colorsToCodes.get(ColorManager.getCurrentColor(player));
-        event.setFormat("<" + color + player.getName() + ChatColor.RESET + "> " + event.getMessage());
+        event.setFormat("<" + color + "%s" + ChatColor.RESET + "> " + "%s");
     }
 }
