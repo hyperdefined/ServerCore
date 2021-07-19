@@ -40,12 +40,14 @@ public class PlayerMove implements Listener {
                     event.setTo(oldLoc);
                     player.leaveVehicle();
                     player.sendMessage(ChatColor.RED + "You are going too fast.");
+                    serverCore.logger.info(player.getName() + " is traveling too fast with an entity on the Nether roof! Speed: " + speed);
                 }
             } else {
                 if (speed > serverCore.config.getDouble("speed.entity.overworld")) {
                     event.setTo(oldLoc);
                     player.leaveVehicle();
                     player.sendMessage(ChatColor.RED + "You are going too fast.");
+                    serverCore.logger.info(player.getName() + " is traveling too fast with an entity! Speed: " + speed);
                 }
             }
         } else if (player.isGliding()) {
@@ -55,6 +57,7 @@ public class PlayerMove implements Listener {
                     player.setGliding(false);
                     event.setTo(oldLoc);
                     player.sendMessage(ChatColor.RED + "You are going too fast.");
+                    serverCore.logger.info(player.getName() + " is traveling too fast with an elytra on the Nether roof! Speed: " + speed);
                 }
             } else {
                 if (speed > serverCore.config.getDouble("speed.elytra.max-speed-overworld")) {
@@ -62,6 +65,7 @@ public class PlayerMove implements Listener {
                     player.setGliding(false);
                     event.setTo(oldLoc);
                     player.sendMessage(ChatColor.RED + "You are going too fast.");
+                    serverCore.logger.info(player.getName() + " is traveling too fast with an elytra! Speed: " + speed);
                 }
             }
         } else {
@@ -70,12 +74,14 @@ public class PlayerMove implements Listener {
                     event.setCancelled(true);
                     event.setTo(oldLoc);
                     player.sendMessage(ChatColor.RED + "You are going too fast.");
+                    serverCore.logger.info(player.getName() + " is walking too fast on the Nether roof! Speed: " + speed);
                 }
             } else {
                 if (speed > serverCore.config.getDouble("speed.normal.max-speed-overworld")) {
                     event.setCancelled(true);
                     event.setTo(oldLoc);
                     player.sendMessage(ChatColor.RED + "You are going too fast.");
+                    serverCore.logger.info(player.getName() + " is walking too fast! Speed: " + speed);
                 }
             }
         }
@@ -92,6 +98,7 @@ public class PlayerMove implements Listener {
                 toSpawn.add(0, 1, 0).getBlock().setType(Material.AIR);
                 player.teleport(toSpawn.subtract(0, 1, 0));
                 player.sendMessage(ChatColor.RED + "You are not allow to go down here.");
+                serverCore.logger.info(player.getName() + " tried going below bedrock!" + player.getLocation());
             }
         }
     }
