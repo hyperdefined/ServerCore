@@ -31,8 +31,6 @@ player-not-found: "&cThat player was not found."
 
 uptime: "&6Server has been online for %server_uptime%."
 
-enable-dupe: false
-
 speed:
   elytra:
     max-speed-overworld: 2.5

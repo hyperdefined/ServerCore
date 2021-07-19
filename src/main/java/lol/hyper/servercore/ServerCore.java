@@ -3,7 +3,6 @@ package lol.hyper.servercore;
 import lol.hyper.servercore.commands.*;
 import lol.hyper.servercore.events.*;
 import lol.hyper.servercore.tools.AutoMessages;
-import lol.hyper.servercore.tools.DupeCharges;
 import lol.hyper.servercore.tools.FuckWitherSkulls;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -49,10 +48,7 @@ public final class ServerCore extends JavaPlugin {
     public CommandRules commandRules;
     public CommandUptime commandUptime;
     public AutoMessages autoMessages;
-    public DupeCharges dupeChargesFUCK;
-    public CommandDupeCharge commandDupeCharge;
     public CommandFeedback commandFeedback;
-    public CommandDupe commandDupe;
     public CommandColor commandColor;
     public CommandReload commandReload;
     public CommandQuickRestart commandQuickRestart;
@@ -96,10 +92,7 @@ public final class ServerCore extends JavaPlugin {
         commandPing = new CommandPing(this);
         commandRules = new CommandRules();
         commandUptime = new CommandUptime(this);
-        dupeChargesFUCK = new DupeCharges(this);
-        commandDupeCharge = new CommandDupeCharge(this);
         commandFeedback = new CommandFeedback();
-        commandDupe = new CommandDupe(this);
         commandColor = new CommandColor();
         commandReload = new CommandReload(this);
         autoMessages = new AutoMessages();
@@ -135,14 +128,6 @@ public final class ServerCore extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(playerJoin, this);
         Bukkit.getServer().getPluginManager().registerEvents(playerLeave, this);
         Bukkit.getServer().getPluginManager().registerEvents(playerMove, this);
-
-        if (!dupeCharges.toFile().exists()) {
-            try {
-                Files.createDirectory(dupeCharges);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public void loadConfig() {
@@ -166,8 +151,6 @@ public final class ServerCore extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("ping")).setExecutor(commandPing);
         Objects.requireNonNull(this.getCommand("rules")).setExecutor(commandRules);
         Objects.requireNonNull(this.getCommand("uptime")).setExecutor(commandUptime);
-        Objects.requireNonNull(this.getCommand("dupe")).setExecutor(commandDupe);
-        Objects.requireNonNull(this.getCommand("dupecharge")).setExecutor(commandDupeCharge);
         Objects.requireNonNull(this.getCommand("color")).setExecutor(commandColor);
         Objects.requireNonNull(this.getCommand("feedback")).setExecutor(commandFeedback);
         Objects.requireNonNull(this.getCommand("sfr")).setExecutor(commandReload);
