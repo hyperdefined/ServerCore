@@ -52,6 +52,7 @@ public final class ServerCore extends JavaPlugin {
     public CommandColor commandColor;
     public CommandReload commandReload;
     public CommandQuickRestart commandQuickRestart;
+    public CommandStats commandStats;
 
     /**
      * @param player player to check if vanished
@@ -97,6 +98,7 @@ public final class ServerCore extends JavaPlugin {
         commandReload = new CommandReload(this);
         autoMessages = new AutoMessages();
         commandQuickRestart = new CommandQuickRestart(this);
+        commandStats = new CommandStats();
         loadConfig();
 
         registerCommands();
@@ -114,7 +116,11 @@ public final class ServerCore extends JavaPlugin {
         Bukkit.getScheduler()
                 .scheduleSyncRepeatingTask(
                         this,
-                        () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "br " + autoMessages.getRandomMessage()),
+                        () -> {
+                            if (config.getBoolean("send-auto-messages")) {
+                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "br " + autoMessages.getRandomMessage());
+                            }
+                        },
                         0,
                         12000);
 
@@ -155,5 +161,6 @@ public final class ServerCore extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("feedback")).setExecutor(commandFeedback);
         Objects.requireNonNull(this.getCommand("sfr")).setExecutor(commandReload);
         Objects.requireNonNull(this.getCommand("qrestart")).setExecutor(commandQuickRestart);
+        Objects.requireNonNull(this.getCommand("stats")).setExecutor(commandStats);
     }
 }

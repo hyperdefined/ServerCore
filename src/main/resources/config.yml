@@ -42,6 +42,8 @@ speed:
     overworld: 1.5
     nether: 0.9
 
+send-auto-messages: true
+
 auto-messages:
   - "Want to talk to the homies privately? Use /party!"
   - "This is an automated message, don't worry!"

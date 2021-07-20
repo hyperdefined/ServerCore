@@ -31,3 +31,5 @@ commands:
     usage: /sfr
   qrestart:
     usage: /qrestart
+  stats:
+    usage: /stats
